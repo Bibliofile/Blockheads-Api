@@ -23,7 +23,7 @@
   "scripts": {
     "build": "tsc",
     "test": "tape -r ts-node/register **/*.test.ts | tap-spec",
-    "docs": "typedoc --out docs --mode modules --name Blockheads-Api --excludeNotExported",
+    "docs": "typedoc --out docs --mode modules --name Blockheads-Api --excludeNotExported --excludePrivate",
     "prepublishOnly": "npm run build"
   }
 }

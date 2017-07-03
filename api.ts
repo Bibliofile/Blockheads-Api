@@ -120,7 +120,7 @@ export interface WorldOverview {
 }
 
 /**
- * The API used to interact with the portal or mac server. For cloud servers, this is implemented by the [[PortalApi]] class. For mac servers, this is implemented by the [[MacApi]] class.
+ * The API used to interact with the portal or mac server.
  */
 export interface WorldApi {
     /**
