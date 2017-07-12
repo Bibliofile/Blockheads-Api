@@ -1,7 +1,9 @@
 // Once Node 8 LTS is out, update this to use util.promisify()
 
 import * as fs from 'fs';
-import { spawn } from 'child_process';
+import * as zlib from 'zlib';
+import { spawn, spawnSync } from 'child_process';
+import { LogParser } from './logs/mac';
 import { WorldInfo, WorldApi, WorldLists, WorldSizes, WorldOverview, LogEntry } from './api';
 
 const plist = require('simple-plist') as {
@@ -46,13 +48,15 @@ function getWorldInfo(id: string): Promise<WorldV2> {
     });
 }
 
-/** 
+/**
  * Gets all worlds owned by the logged in user.
  */
 export function getWorlds(): Promise<WorldInfo[]> {
     return new Promise<WorldInfo[]>((resolve, reject) => {
         fs.readdir(root, async (err, files) => {
-            if (err) reject(err);
+            if (err) {
+                return reject(err);
+            }
 
             let files2 = await Promise.all(files.map(getWorldInfo));
 
@@ -111,23 +115,27 @@ export class Api implements WorldApi {
     /** @inheritdoc */
     getOverview = async (): Promise<WorldOverview> => {
         let info = await getWorldInfo(this.info.id);
+        let online: string[] = JSON.parse(spawnSync('osascript', [
+            '-l', 'JavaScript',
+            __dirname + '/scripts/online.scpt',
+        ]).stdout);
 
         let size: WorldSizes;
         switch(info.worldSize) {
             case 512 * 1/16:
-                size = '1/16x'; 
+                size = '1/16x';
                 break;
             case 512 * 1/4:
-                size = '1/4x'; 
+                size = '1/4x';
                 break;
             case 512 * 1:
-                size = '1x'; 
+                size = '1x';
                 break;
             case 512 * 4:
-                size = '4x'; 
+                size = '4x';
                 break;
             case 512 * 16:
-                size = '16x'; 
+                size = '16x';
                 break;
             default:
                 size = '1x';
@@ -145,16 +153,30 @@ export class Api implements WorldApi {
             password: false, // Mac servers can't set passwords
             size,
             whitelist: (await getFile(root + this.info.id + '/whitelist.txt')).split('\n').length > 2,
-            online: [], // TODO: Get online players from app
+            online, // TODO: Get online players from app
         };
     }
 
     /** @inheritdoc */
     getLogs(): Promise<LogEntry[]> {
+        // Notes: /private/var/log contains system.log (text) and system.log.#.gz.
+        // system.log.0.gz is newer than system.log.1.gz.
+        // readdir returns the files in the order of 0..1..2
+        let files = fs.readdirSync('/private/var/log/')
+            .filter(name => name.startsWith('system.log.'));
+
+        // Reduce to a single string, oldest line on top
+        let log = files.reduceRight((carry, file) => {
+            let compressed = fs.readFileSync(`/private/var/log/${file}`);
+            return carry + zlib.gunzipSync(compressed).toString('utf8');
+        }, '');
+        log += fs.readFileSync('/private/var/log/system.log');
+
+
+        return Promise.resolve(new LogParser().parse(log));
         // Mac servers do not save logs.
         // TODO: Pull logs from /private/var/log/system.log* to get the past week of logs.
         // Ref: http://forums.theblockheads.net/t/mac-server-app-saving-server-logs/51210
-        return Promise.resolve([]);
     }
 
     /** @inheritdoc */
