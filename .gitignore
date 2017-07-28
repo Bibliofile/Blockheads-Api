@@ -46,3 +46,6 @@ jspm_packages
 # Yarn Integrity file
 .yarn-integrity
 
+# Output from building
+*.d.ts
+*.js

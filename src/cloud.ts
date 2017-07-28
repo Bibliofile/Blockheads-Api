@@ -4,7 +4,7 @@ import {
     WorldLists,
     WorldOverview,
     LogEntry,
-    WorldPrivacy, 
+    WorldPrivacy,
     WorldSizes
 } from './api';
 
@@ -39,7 +39,7 @@ function makeRequest(url: string, options: RequestInit) {
     if (options.method == 'POST') {
         headers['Content-Type'] = 'application/x-www-form-urlencoded';
     }
-    
+
     return request(`${root}${url}`, Object.assign({
             mode: 'same-origin',
             credentials: 'same-origin',
@@ -58,7 +58,7 @@ function requestPage(url: string, options: RequestInit = {}): Promise<string> {
 
 /**
  * Function to try to log in, if the log in fails, the returned promise will reject, otherwise it will resolve.
- * 
+ *
  * @param username the username to try to log in with
  * @param password the password to try to log in with
  */
@@ -84,7 +84,7 @@ export async function login(username: string, password: string): Promise<void> {
     }
 }
 
-/** 
+/**
  * Gets all worlds owned by the logged in user.
  */
 export async function getWorlds(): Promise<WorldInfo[]> {
@@ -196,13 +196,13 @@ export class Api implements WorldApi {
     getLogs = (): Promise<LogEntry[]> => {
         return requestPage(`/worlds/logs/${this.info.id}`)
             .then(log => log.split('\n'))
-            .then(this.parser.parse);
+            .then(lines => this.parser.parse(lines));
     }
 
     /** @inheritdoc */
     getMessages = (lastId: number = 0): Promise<{nextId: number, log: string[]}> => {
         return requestJSON('/api', {
-            method: 'POST', 
+            method: 'POST',
             body: `command=getchat&worldId=${this.info.id}&firstId=${lastId}`
         })
         .then(({status, log, nextId}: {status: string, log: string[], nextId: number}) => {
