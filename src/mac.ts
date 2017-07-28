@@ -68,6 +68,7 @@ if (sysLog.length > maxRecordedLogs) sysLog = sysLog.slice(sysLog.length - maxRe
  */
 export const getWorlds = async (): Promise<WorldInfo[]> => {
     let files = await readdirAsync(root);
+    files = files.filter(worldFolder => !worldFolder.startsWith('.'));
     let worlds = await Promise.all(files.map(getWorldInfo));
 
     return worlds.map((world, i) => {
