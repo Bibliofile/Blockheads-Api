@@ -34,7 +34,7 @@ interface WorldV2 {
     hostPort: string;
 }
 
-const root = `/Users/${process.env.USER}/Library/Containers/com.majicjungle.BlockheadsServer/Data/Library/Application Support/TheBlockheads/`;
+const root = `/Users/${process.env.USER}/Library/Containers/com.majicjungle.BlockheadsServer/Data/Library/Application Support/TheBlockheads/saves/`;
 let getWorldInfo = (id: string) => readPlistAsync(`${root}${id}/worldv2`) as Promise<WorldV2>;
 
 
