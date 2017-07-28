@@ -13,7 +13,7 @@ let writeFileAsync = promisify(writeFile) as (filename: string, encoding: string
 let readdirAsync = promisify(readdir) as (path: string | Buffer) => Promise<string[]>;
 
 import { exec } from 'child_process';
-let execAsync = promisify(exec) as (command: string) => Promise<[string, string]>;
+let execAsync = promisify(exec) as (command: string) => Promise<[Error | null, string, string]>;
 
 import * as zlib from 'zlib';
 import { LogParser } from './logs/mac';
@@ -126,7 +126,7 @@ export class Api implements WorldApi {
 
     /** @inheritdoc */
     getOverview = async (): Promise<WorldOverview> => {
-        let [info, [online], whitelist] = await Promise.all([
+        let [info, [, , online], whitelist] = await Promise.all([
             getWorldInfo(this.info.id),
             execAsync(`osascript -l JavaScript "${__dirname}/scripts/online.scpt" ${JSON.stringify(this.info.name)}`),
             readFileAsync(`${root}${this.info.id}/whitelist.txt`, 'utf8')
