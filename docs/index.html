@@ -80,6 +80,12 @@ setFetch(<span class="hljs-built_in">require</span>(<span class="hljs-string">'f
 
 <span class="hljs-comment">// For mac worlds</span>
 <span class="hljs-keyword">import</span> { getWorlds, Api } <span class="hljs-keyword">from</span> <span class="hljs-string">'blockheads-api/mac'</span>;
+<span class="hljs-comment">// If you want to watch chat for mac worlds, you must explicitly say so.</span>
+<span class="hljs-keyword">import</span> { watchChat, unwatchChat } <span class="hljs-keyword">from</span> <span class="hljs-string">'blockheads-api/mac'</span>;
+<span class="hljs-comment">// Will prevent your script from exiting once processing is done.</span>
+watchChat();
+<span class="hljs-comment">// Stops the syslog listener for chat</span>
+unwatchCHat();
 </code></pre>
 				<h2 id="examples">Examples</h2>
 				<p>List all worlds</p>

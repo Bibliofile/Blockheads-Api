@@ -12,7 +12,7 @@ function readFileAsync(filename: string, encoding?: string) {
 let writeFileAsync = promisify(writeFile) as (filename: string, encoding: string) => Promise<string>;
 let readdirAsync = promisify(readdir) as (path: string | Buffer) => Promise<string[]>;
 
-import { exec } from 'child_process';
+import { exec, ChildProcess } from 'child_process';
 let execAsync = promisify(exec) as (command: string) => Promise<string>;
 
 import * as zlib from 'zlib';
@@ -39,28 +39,44 @@ let getWorldInfo = (id: string) => readPlistAsync(`${root}${id}/worldv2`) as Pro
 
 
 // Getting messages.
-const maxRecordedLogs = 2000;
+const maxSavedLogs = 2000;
 let sysLog: [number, string][] = [];
+let tail: ChildProcess;
 let logId = 0;
-let tail = exec('tail -fF -n 0 /private/var/log/system.log');
 
-tail.stdout.on('data', data => {
-    if (Buffer.isBuffer(data)) data = data.toString('utf8');
+/**
+ * Starts a tail process to watch for chat messages. If not called, the getMessages() method on the Api class will never return any messages.
+ */
+export function watchChat() {
+    unwatchChat();
 
-    let lines = data.split('\n');
-    for (let i = 0; i < lines.length; i++) {
-        let line = lines[i];
-        while (lines[i + 1] && lines[i + 1].startsWith('\t')) {
-            line += '\n' + lines[++i].slice(1); // Remove tab
+    tail = exec('tail -fF -n 0 /private/var/log/system.log');
+    tail.stdout.on('data', data => {
+        if (Buffer.isBuffer(data)) data = data.toString('utf8');
+
+        let lines = data.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i];
+            while (lines[i + 1] && lines[i + 1].startsWith('\t')) {
+                line += '\n' + lines[++i].slice(1); // Remove tab
+            }
+
+            if (/^\w\w\w ( |\d)\d \d\d:\d\d:\d\d ([\w-]+) BlockheadsServer\[\d+]: /.test(line)) {
+                sysLog.push([logId++, line]);
+            }
         }
 
-        if (/^\w\w\w ( |\d)\d \d\d:\d\d:\d\d ([\w-]+) BlockheadsServer\[\d+]: /.test(line)) {
-            sysLog.push([logId++, line]);
-        }
-    }
-});
+        if (sysLog.length > maxSavedLogs) sysLog = sysLog.slice(sysLog.length - maxSavedLogs);
+    });
+}
 
-if (sysLog.length > maxRecordedLogs) sysLog = sysLog.slice(sysLog.length - maxRecordedLogs);
+/**
+ * Stops watching chat.
+ */
+export function unwatchChat() {
+    if (tail) tail.kill();
+}
+
 
 
 /**

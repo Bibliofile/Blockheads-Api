@@ -78,6 +78,8 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_mac_.html#getworlds" class="tsd-kind-icon">get<wbr>Worlds</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_mac_.html#unwatchchat" class="tsd-kind-icon">unwatch<wbr>Chat</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_mac_.html#watchchat" class="tsd-kind-icon">watch<wbr>Chat</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,7 +97,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/0fde44a/src/mac.ts#L69">mac.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/a07959e/src/mac.ts#L85">mac.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -104,6 +106,50 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_api_.worldinfo.html" class="tsd-signature-type">WorldInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="unwatchchat" class="tsd-anchor"></a>
+					<h3>unwatch<wbr>Chat</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">unwatch<wbr>Chat<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/a07959e/src/mac.ts#L76">mac.ts:76</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Stops watching chat.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="watchchat" class="tsd-anchor"></a>
+					<h3>watch<wbr>Chat</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">watch<wbr>Chat<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/a07959e/src/mac.ts#L50">mac.ts:50</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Starts a tail process to watch for chat messages. If not called, the getMessages() method on the Api class will never return any messages.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -142,6 +188,12 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_mac_.html#getworlds" class="tsd-kind-icon">get<wbr>Worlds</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_mac_.html#unwatchchat" class="tsd-kind-icon">unwatch<wbr>Chat</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_mac_.html#watchchat" class="tsd-kind-icon">watch<wbr>Chat</a>
 					</li>
 				</ul>
 			</nav>

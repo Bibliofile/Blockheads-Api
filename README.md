@@ -20,6 +20,12 @@ setFetch(require('fetch-cookie/node-fetch')(require('node-fetch')));
 
 // For mac worlds
 import { getWorlds, Api } from 'blockheads-api/mac';
+// If you want to watch chat for mac worlds, you must explicitly say so.
+import { watchChat, unwatchChat } from 'blockheads-api/mac';
+// Will prevent your script from exiting once processing is done.
+watchChat();
+// Stops the syslog listener for chat
+unwatchCHat();
 ```
 
 ## Examples
