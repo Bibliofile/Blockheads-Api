@@ -78,7 +78,6 @@ export function unwatchChat() {
 }
 
 
-
 /**
  * Gets all worlds owned by the logged in user.
  */
