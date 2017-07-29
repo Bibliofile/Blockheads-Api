@@ -1,6 +1,6 @@
 # Blockheads-Api
 
-This repository provides a standardized API for interacting with Blockheads Worlds. **This is not yet complete.**
+This repository provides a standardized API for interacting with Blockheads Worlds.
 
 ## Documentation
 Available [here](https://bibliofile.github.io/Blockheads-Api/)
