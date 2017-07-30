@@ -25,7 +25,7 @@
   "scripts": {
     "build": "tsc",
     "test": "tape -r ts-node/register **/*.test.ts | tap-spec",
-    "docs": "typedoc --out docs --mode modules --name Blockheads-Api --excludeNotExported --excludePrivate",
+    "docs": "typedoc --out docs --mode modules --name Blockheads-Api --excludeNotExported --excludePrivate && echo Save >> docs/.nojekyll",
     "prepublishOnly": "npm run build"
   }
 }
