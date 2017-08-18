@@ -141,24 +141,27 @@ export interface WorldApi {
      */
     getLogs(): Promise<LogEntry[]>;
     /**
-     * Sends a message to the server.
+     * Sends a message to the server. Resolves if the message was sent, throws if the message failed.
      */
-    send(message: string): void;
+    send(message: string): Promise<void>;
     /**
      * Gets messages since the last timestamp
      */
     getMessages(lastId: number): Promise<{nextId: number, log: string[]}>;
 
     /**
-     * Starts a world if it is not already running
+     * Starts a world if it is not already running.
+     * Resolves when the request has been sent, the world may still be starting up. Will not throw.
      */
-    start(): void;
+    start(): Promise<void>;
     /**
      * Stops a world if it is running
+     * Resolves after the request has been received by the server. The world may not yet be offline. Will not throw.
      */
-    stop(): void;
+    stop(): Promise<void>;
     /**
      * Restarts a world, has no effect if the world is offline.
+     * Resolves when the request has been sent, though the world may not yet be online. Will not throw.
      */
-    restart(): void;
+    restart(): Promise<void>;
 }

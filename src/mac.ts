@@ -205,9 +205,13 @@ export class Api implements WorldApi {
     }
 
     /** @inheritdoc */
-    send = (message: string): void => {
-        execAsync(`osascript -l JavaScript "${__dirname}/scripts/send.scpt" ${JSON.stringify(this.info.name)} ${JSON.stringify(message)}`)
-            .catch(console.error);
+    send = (message: string): Promise<void> => {
+        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/send.scpt" ${JSON.stringify(this.info.name)} ${JSON.stringify(message)} 2>&1`)
+            .then(output => {
+                if (output.includes('fail')) {
+                    throw new Error('Unable to send message');
+                }
+            });
     }
 
     /** @inheritdoc */
@@ -224,20 +228,20 @@ export class Api implements WorldApi {
     }
 
     /** @inheritdoc */
-    start = (): void => {
-        execAsync(`osascript -l JavaScript "${__dirname}/scripts/start.scpt" ${JSON.stringify(this.info.name)}`)
-            .catch(console.error);
+    start = (): Promise<void> => {
+        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/start.scpt" ${JSON.stringify(this.info.name)}`)
+            .then(() => undefined, console.error);
     }
 
     /** @inheritdoc */
-    stop = (): void => {
-        execAsync(`osascript -l JavaScript "${__dirname}/scripts/stop.scpt" ${JSON.stringify(this.info.name)}`)
-            .catch(console.error);
+    stop = (): Promise<void> => {
+        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/stop.scpt" ${JSON.stringify(this.info.name)}`)
+            .then(() => undefined, console.error);
     }
 
     /** @inheritdoc */
-    restart = (): void => {
-        execAsync(`osascript -l JavaScript "${__dirname}/scripts/restart.scpt" ${JSON.stringify(this.info.name)}`)
-            .catch(console.error);
+    restart = (): Promise<void> => {
+        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/restart.scpt" ${JSON.stringify(this.info.name)}`)
+            .then(() => undefined, console.error);
     }
 }

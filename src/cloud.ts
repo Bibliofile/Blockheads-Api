@@ -21,20 +21,18 @@ export function setFetch(fn: typeof fetch): void {
 }
 
 function unescapeHTML(html: string) {
-    return html.replace(/(&.*?;)/g, (_match, first: string) => {
-        let map: {[key: string]: string} = {
-            '&lt;': '<',
-            '&gt;': '>',
-            '&amp;': '&',
-            '&#39;': '\'',
-            '&quot;': '"',
-        }; //It seems these are the only escaped characters.
+    let map: {[key: string]: string} = {
+        '&lt;': '<',
+        '&gt;': '>',
+        '&amp;': '&',
+        '&#39;': '\'',
+        '&quot;': '"',
+    };
 
-        return map[first] || '';
-    });
+    return html.replace(/(&.*?;)/g, (_, first: string) => map[first] || '');
 }
 
-function makeRequest(url: string, options: RequestInit) {
+function makeRequest (url: string, options: RequestInit): Promise<Response> {
     let headers: {[k: string]: string} = {'X-Requested-With': 'XMLHttpRequest'};
     if (options.method == 'POST') {
         headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -48,7 +46,7 @@ function makeRequest(url: string, options: RequestInit) {
         }, options));
 }
 
-function requestJSON(url: string, options: RequestInit = {}): {[key: string]: any} {
+function requestJSON(url: string, options: RequestInit = {}): Promise<{[key: string]: any}> {
     return makeRequest(url, options).then(r => r.json());
 }
 
@@ -111,11 +109,8 @@ export async function getWorlds(): Promise<WorldInfo[]> {
 /** @inheritdoc */
 export class Api implements WorldApi {
     private parser = new PortalLogParser();
-    private queue: string[] = [];
 
-    constructor(private info: WorldInfo) {
-        this.postMessage();
-    }
+    constructor(private info: WorldInfo) {}
 
     /** @inheritdoc */
     getLists = async (): Promise<WorldLists> => {
@@ -212,53 +207,40 @@ export class Api implements WorldApi {
     }
 
     /** @inheritdoc */
-    send = (message: string): void => {
-        this.queue.push(message);
+    send = (message: string): Promise<void> => {
+        return requestJSON('/api', {
+            method: 'POST',
+            body: `command=send&worldId=${this.info.id}&message=${encodeURIComponent(message)}`
+        }).then(result => {
+            if (result.status == 'ok') return;
+            throw new Error(`Unable to send ${message}`);
+        });
     }
 
     /** @inheritdoc */
-    start = (): void => {
-        requestJSON('/api', {
+    start = (): Promise<void> => {
+        return requestJSON('/api', {
             method: 'POST',
             body: `command=start&worldId=${this.info.id}`
         })
-        .catch(console.error);
+        .then(() => undefined, console.error);
     }
 
     /** @inheritdoc */
-    stop = (): void => {
+    stop = (): Promise<void> => {
         return requestJSON('/api', {
             method: 'POST',
             body: `command=stop&worldId=${this.info.id}`
         })
-        .catch(console.error);
+        .then(() => undefined, console.error);
     }
 
     /** @inheritdoc */
-    restart = (): void => {
+    restart = (): Promise<void> => {
         return requestJSON('/api', {
             method: 'POST',
             body: `command=reboot&worldId=${this.info.id}`
         })
-        .catch(console.error);
-    }
-
-    /**
-     * If any messages are queued, sends the oldest one and schedules another check.
-     */
-    private postMessage = (): void => {
-        if (this.queue.length) {
-            requestJSON('/api', {
-                method: 'POST',
-                body: `command=send&worldId=${this.info.id}&message=${encodeURIComponent(this.queue.shift() as string)}`
-            })
-            .then(() => {
-                setTimeout(this.postMessage, 500);
-            }, () => {
-                setTimeout(this.postMessage, 1000);
-            });
-        } else {
-            setTimeout(this.postMessage, 500);
-        }
+        .then(() => undefined, console.error);
     }
 }
