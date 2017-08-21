@@ -165,3 +165,6 @@ export interface WorldApi {
      */
     restart(): Promise<void>;
 }
+declare var WorldApi: {
+    new(info: WorldInfo): WorldApi
+};
