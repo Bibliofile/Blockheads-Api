@@ -62,7 +62,7 @@ export function watchChat() {
             }
 
             if (/^\w\w\w ( |\d)\d \d\d:\d\d:\d\d ([\w-]+) BlockheadsServer\[\d+]: /.test(line)) {
-                sysLog.push([logId++, line]);
+                sysLog.push([logId++, line.slice(line.indexOf(': ') + 2)]);
             }
         }
 
@@ -216,13 +216,13 @@ export class Api implements WorldApi {
 
     /** @inheritdoc */
     getMessages(lastId: number = 0): Promise<{nextId: number, log: string[]}> {
-        let nextId = sysLog.length ? sysLog[sysLog.length][0] : 0;
+        let nextId = sysLog.length ? sysLog[sysLog.length - 1][0] + 1 : 0;
 
         let log = sysLog
             .filter(entry => entry[0] >= lastId)
             .map(entry => entry[1])
             .filter(message => message.startsWith(this.info.name))
-            .map(message => message.slice(this.info.name.length));
+            .map(message => message.slice(this.info.name.length + 3));
 
         return Promise.resolve({ nextId, log });
     }
