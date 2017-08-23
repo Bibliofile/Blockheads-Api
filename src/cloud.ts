@@ -13,7 +13,9 @@ import { PortalLogParser } from './logs/portal';
 import sha1 = require('sha1');
 
 const root = 'http://portal.theblockheads.net';
-let request: typeof fetch = fetch;
+let request: typeof fetch =
+    typeof global != 'undefined' && (global as any).fetch ||
+    typeof window != 'undefined' && (window as any).fetch;
 
 // Makes it possible to set the fetch function which the module uses. Necessary for terminal usage.
 export function setFetch(fn: typeof fetch): void {
