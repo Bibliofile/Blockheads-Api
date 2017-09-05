@@ -25,7 +25,7 @@ import { watchChat, unwatchChat } from 'blockheads-api/mac';
 // Will prevent your script from exiting once processing is done.
 watchChat();
 // Stops the syslog listener for chat
-unwatchCHat();
+unwatchChat();
 ```
 
 ## Examples
