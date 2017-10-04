@@ -1,6 +1,6 @@
 {
   "name": "blockheads-api",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "APIs for interacting with cloud servers and mac servers without requiring changes to your code.",
   "main": "cloud.js",
   "types": "could.d.ts",
@@ -8,12 +8,10 @@
   "author": "Bibliofile <bibliofilegit@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
-    "sha1": "^1.1.1",
     "simple-plist": "^0.2.1",
     "util.promisify": "^1.0.0"
   },
   "devDependencies": {
-    "@types/sha1": "^1.1.0",
     "@types/tape": "^4.2.30",
     "tap-spec": "^4.1.1",
     "tape": "^4.7.0",

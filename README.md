@@ -7,6 +7,8 @@ Available [here](https://bibliofile.github.io/Blockheads-Api/)
 
 ## Usage
 
+Note: This module uses ES Modules, if you are including it in a standard node project, you need to require [`@std/esm`](https://www.npmjs.com/package/@std/esm) first or transpile the code.
+
 1. Install with `npm install --save blockheads-api` or, if you prefer yarn, `yarn add blockheads-api`
 2. Include the applicable module.
 

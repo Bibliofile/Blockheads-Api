@@ -3,7 +3,7 @@
         "indent": [true, "spaces"],
         "no-duplicate-variable": true,
         "semicolon": [true, "always"],
-        "cyclomatic-complexity": [true, 10],
+        "cyclomatic-complexity": [true, 15],
         "no-invalid-this": [true, "check-function-in-method"]
     }
 }

@@ -1,4 +1,4 @@
-import test = require('tape');
+import * as test from 'tape';
 import { PortalLogParser as LogParser } from './portal';
 
 test('PortalLogParser', t => {

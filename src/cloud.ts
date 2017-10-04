@@ -10,7 +10,7 @@ import {
 
 import { PortalLogParser } from './logs/portal';
 
-import sha1 = require('sha1');
+import { sha1 } from './sha1';
 
 const root = 'http://portal.theblockheads.net';
 let request: typeof fetch =
