@@ -57,10 +57,8 @@ export function sha1(message: string): string {
 
     // Now append the length in bits as a 64 bit big-endian int.
     // Most significant, will normally be 0 for short inputs.
-    words.push(message.length >>> 29);
-    words.push(message.length << 3);
-    // words.push(Math.floor((message.length - 1) * 8 / (2 ** 32)));
-    // words.push((message.length - 1) & 0xffffffff);
+    words.push(Math.floor((message.length - 1) * 8 / (2 ** 32)));
+    words.push((message.length - 1) & 0xffffffff);
 
     // Section 6.1.2
     let h = [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0];
