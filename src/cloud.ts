@@ -13,9 +13,10 @@ import { PortalLogParser } from './logs/portal';
 import { sha1 } from './sha1';
 
 const root = 'http://portal.theblockheads.net';
-let request: typeof fetch =
-    typeof global != 'undefined' && (global as any).fetch ||
-    typeof window != 'undefined' && (window as any).fetch;
+let request: typeof fetch;
+try {
+    request = fetch;
+} catch {}
 
 // Makes it possible to set the fetch function which the module uses. Necessary for terminal usage.
 export function setFetch(fn: typeof fetch): void {
@@ -31,28 +32,29 @@ function unescapeHTML(html: string) {
         '&quot;': '"',
     };
 
-    return html.replace(/(&.*?;)/g, (_, first: string) => map[first] || '');
+    return html.replace(/(&.*?;)/g, (_, first: string) => map[first] as string);
 }
 
-function makeRequest (url: string, options: RequestInit): Promise<Response> {
+function makeRequest (url: string, options: RequestInit = {}): Promise<Response> {
     let headers: {[k: string]: string} = {'X-Requested-With': 'XMLHttpRequest'};
     if (options.method == 'POST') {
         headers['Content-Type'] = 'application/x-www-form-urlencoded';
     }
 
-    return request(`${root}${url}`, Object.assign({
-            mode: 'same-origin',
-            credentials: 'same-origin',
-            redirect: 'follow',
-            headers
-        }, options));
+    return request(`${root}${url}`, {
+        mode: 'same-origin',
+        credentials: 'same-origin',
+        redirect: 'follow',
+        headers,
+        ...options
+    });
 }
 
-function requestJSON(url: string, options: RequestInit = {}): Promise<{[key: string]: any}> {
+function requestJSON(url: string, options?: RequestInit): Promise<{[key: string]: any}> {
     return makeRequest(url, options).then(r => r.json());
 }
 
-function requestPage(url: string, options: RequestInit = {}): Promise<string> {
+function requestPage(url: string, options?: RequestInit): Promise<string> {
     return makeRequest(url, options).then(r => r.text());
 }
 
@@ -72,8 +74,8 @@ export async function login(username: string, password: string): Promise<void> {
 
     if (info.status != 'ok') throw new Error('Bad API response.');
 
-    let hashedPass = sha1(info.salt + password) as string;
-    hashedPass += sha1(hashedPass + info.salt2) as string;
+    let hashedPass = sha1(info.salt + password);
+    hashedPass += sha1(hashedPass + info.salt2);
 
     let body = `seed=${info.seed}&password=${hashedPass}&username=${encodeURIComponent(username)}`;
 
@@ -123,7 +125,7 @@ export class Api implements WorldApi {
             let list = page.match(new RegExp(`<textarea name="${name}">([\\s\\S]*?)</textarea>`));
             if (list) {
                 names = unescapeHTML(list[1])
-                        .split('\n');
+                    .split(/\r?\n/);
             }
 
             // Remove duplicates / blank lines

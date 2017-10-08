@@ -1,19 +1,17 @@
 // Once Node 8 LTS is out, update this to use util.promisify()
-
-const promisify = require('util.promisify') as (fn: Function) => Function;
+import { promisify } from 'typed-promisify';
 import {readFile, writeFile, readdir } from 'fs';
 
-// This is ugly. Would be great to fix.
-function readFileAsync (filename: string): Promise<Buffer>;
-function readFileAsync(filename: string, encoding: string): Promise<string>;
-function readFileAsync(filename: string, encoding?: string) {
-    return promisify(readFile)(filename, encoding);
+function readFileAsync(path: string, encoding: string): Promise<string>;
+function readFileAsync(path: string): Promise<Buffer>;
+function readFileAsync(...args: any[]): Promise<any> {
+    return (promisify(readFile) as Function)(...args);
 }
-let writeFileAsync = promisify(writeFile) as (filename: string, encoding: string) => Promise<string>;
-let readdirAsync = promisify(readdir) as (path: string | Buffer) => Promise<string[]>;
+const writeFileAsync = promisify(writeFile) as (path: string | Buffer, data: any) => void;
+const readdirAsync = promisify<string | Buffer, string[]>(readdir);
 
 import { exec, ChildProcess } from 'child_process';
-let execAsync = promisify(exec) as (command: string) => Promise<string>;
+const execAsync = promisify<string, string>(exec);
 
 import * as zlib from 'zlib';
 import { LogParser } from './logs/mac';
@@ -23,7 +21,7 @@ const plist = require('simple-plist') as {
     readFile: (file: string, callback: (err: Error | null, data: Object) => void) => void,
     readFileSync: (file: string) => Object
 };
-let readPlistAsync = promisify(plist.readFile) as (file: string) => Promise<Object>;
+let readPlistAsync = promisify<string, Object>(plist.readFile);
 
 interface WorldV2 {
     creationDate: Date;
@@ -201,7 +199,7 @@ export class Api implements WorldApi {
         }, '');
         log += await readFileAsync('/private/var/log/system.log');
 
-        return new LogParser().parse(log);
+        return new LogParser(this.info.name).parse(log);
     }
 
     /** @inheritdoc */

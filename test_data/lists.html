@@ -1,0 +1,224 @@
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<title>AIRSTEDDING Manager | Portal</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	<!--[if lt IE 9]>
+		<script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+	<!--[if lt IE 10]>
+		<script src="/static/jquery.placeholder.js"></script>
+	<![endif]-->
+	<script src="/static/ajax.js" type="text/javascript"></script>
+	<script src="/static/admin.js" type="text/javascript"></script>
+	<script src="/static/localtime.js" type="text/javascript"></script>
+	<link rel="shortcut icon" href="/static/favicon.ico" />
+	<link rel="stylesheet" href="/static/style.css" type="text/css" />
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-language" content="en-us" />
+	<meta http-equiv="imagetoolbar" content="false" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+	window.rootURL = '/'
+	window.apiURL = '/api'
+	window.worldsURL = '/worlds/'
+	if ($(window).width() < 600)
+	{
+		$('meta[name=viewport]').attr('content','initial-scale=0.8');
+	}
+	</script>
+</head>
+
+<body>
+	<div id="container">
+	<div id="header">
+
+		<div id="header_inside">
+			<div id="mainmenu" class="menu">
+
+			<ul>
+
+				<li id="nav_worlds" ><a href="/worlds">Worlds</a></li>
+				<li id="nav_userreports"><a href="/userreports">Reports</a></li>
+
+				<li id="nav_profile"><a href="/profile">BIBLIOPHILE</a></li>
+				<li id="nav_logout"><a href="/logout">Logout</a></li>
+			</ul>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="main" class="inside">
+
+
+
+
+<div id="123">
+
+<div style="width:80px;float:right;text-align:right;padding-right:10px;font-weight:bold;" class="status lowres"></div>
+<h1 id="title" style="margin-left:5px"><a href="/worlds/123" style="float:left">AIRSTEDDING</a></h1>
+
+<div id="tabs" class="hires">
+<div style="float:right;width:300px;text-align:right;margin: 5px 5px 0px 0px">
+	<div class="status" style="width:120px;text-align:right;display:inline-block;margin-right:10px;font-weight:bold;"></div>
+	<button class="offline" onclick="return startWorld(this, '123')" style="display:none;">Start</button>
+
+
+	<button class="online" onclick="window.location = '/worlds/logs/123'" style="display:none;">View Log</button>
+	<button class="online" onclick="return rebootWorld(this, '123')" style="display:none;">Restart</button>
+
+</div>
+<ul>
+	<li id="worldnav_"><a href="/worlds/123">Overview</a></li>
+	<li id="worldnav_settings"><a href="/worlds/settings/123">Settings</a></li>
+	<li id="worldnav_lists"><a href="/worlds/lists/123">Lists</a></li>
+	<li id="worldnav_console"><a href="/worlds/console/123">Console</a></li>
+
+</ul>
+</div>
+<script>
+window.worldId = 123
+</script>
+
+
+<style>
+textarea {
+	width: 95%;
+	height: 200px;
+	max-width: 600px;
+	margin: 5px auto;
+}
+div.list {
+	text-align: left;
+}
+div.title {
+	float: left;
+	width: 100px;
+	font-size: 1.5em;
+	font-weight: bold;
+	text-align: left;
+	padding-left: 5px;
+}
+div.description {
+	float: right;
+	min-width: 250px;
+	text-align: left;
+}
+</style>
+
+
+<form id="lists" class="newstyle">
+<table class="manager list">
+	<tr class="header">
+		<th class="left" colspan="3">Lists</td>
+	</tr>
+	<tr><td>
+		<div class="title">Admins</div><div class="description">Admins can kick, ban and admin players<br/>One player name per line</div>
+		<div class="list"><textarea name="admins">%#&amp;!&#39;=
+PERSON
+BIBLIOFILE
+-bib_phile-2</textarea></div>
+	</td></tr>
+
+	<tr><td>
+		<div class="title">Mods</div><div class="description">Moderators can kick and ban players<br/>One player name per line</div>
+		<div class="list"><textarea name="modlist">ME: TEST :
+-bib_phile-2
+0x159</textarea></div>
+	</td></tr>
+
+	<tr><td>
+		<div class="title">Whitelist</div><div class="description">Only allow admins and these players<br/>One player name or IP per line</div>
+		<div class="list"><textarea name="whitelist">ME: TEST :
+-bib_phile-2
+abcbib
+abcbib
+dkswoa</textarea></div>
+	</td></tr>
+
+	<tr><td>
+		<div class="title">Blacklist</div><div class="description">No access for these players<br/>One player name or IP per line</div>
+		<div class="list"><textarea name="blacklist">test</textarea></div>
+	</td></tr>
+</table>
+<button id="status" class="wide" onclick="return ajaxForm($('#lists'), $('#status'))">SAVE</button></td>
+</form>
+
+
+
+
+</div>
+
+<script>
+updateWorld({id: 123, worldStatus: 'online', name: 'AIRSTEDDING', ip: '45.79.73.209', port: 32142}, '123')
+</script>
+
+<script>
+var managerPath = window.location.pathname.replace(window.worldsURL, '')
+var slashIndex = managerPath.indexOf('/')
+if (slashIndex >= 0)
+{
+    managerPath = managerPath.substring(0, slashIndex)
+}
+else
+{
+	managerPath = ''
+}
+
+var selector = $('#worldnav_' + managerPath)
+if (selector.length == 0)
+	selector = $('#worldnav_')
+
+selector.addClass('selected')
+if (managerPath.length > 0)
+{
+	$('#title').append($('<span class="lowres"> &gt; ' + managerPath.toUpperCase() + '</span>'))
+}
+</script>
+
+
+
+<script>
+</script>
+
+
+	</div>
+
+	<script>
+
+	var ua = window.navigator.userAgent;
+	var msie = ua.indexOf('MSIE ');
+
+	if (msie > 0) {
+		$('input, textarea').placeholder()
+	}
+
+	var managerPath = window.location.pathname.replace(window.rootURL, '')
+	var slashIndex = managerPath.indexOf('/')
+	if (slashIndex >= 0)
+	{
+	    managerPath = managerPath.substring(0, slashIndex)
+	}
+	var selector = $('#nav_' + managerPath)
+	if (selector.length == 0)
+		selector = $('#nav_')
+
+	selector.addClass('selected')
+	</script>
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-37355573-2', 'auto');
+	ga('send', 'pageview');
+	</script>
+</body>
+</html>

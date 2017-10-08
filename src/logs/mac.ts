@@ -3,7 +3,7 @@ import { LogEntry } from '../api';
 export class LogParser {
     private validLineStart = /^[A-Z][a-z]{2} ( |\d)\d \d\d:\d\d:\d\d ([\w\-]+) BlockheadsServer/;
 
-    constructor() {}
+    constructor(private name: string) {}
 
     parse(log: string): LogEntry[] {
         let result: LogEntry[] = [];
@@ -24,12 +24,11 @@ export class LogParser {
                     temp.message += '\n' + line.substr(1);
                     // We know this won't pass the valid line test, so skip it
                     continue;
-                } else {
-                    // Not continued, add to the results and reset
-                    // We might still have a valid new message though.
-                    result.push(temp);
-                    temp = undefined;
                 }
+                // Not continued, add to the results and reset
+                // We might still have a valid new message though.
+                this.addIfValid(result, temp);
+                temp = undefined;
             }
 
             if (this.validLineStart.test(line)) {
@@ -41,12 +40,26 @@ export class LogParser {
 
                 temp = {
                     raw: line,
-                    timestamp: new Date(),
+                    timestamp: time,
                     message: line.substr(line.indexOf(']') + 3)
                 };
             }
         }
 
+        if (temp) this.addIfValid(result, temp);
+
         return result;
+    }
+
+    private addIfValid(result: LogEntry[], message: LogEntry) {
+        let keepName = [` - Player Connected`, ` - Player Disconnected`, ` - Client disconnected`];
+        let msg = message.message;
+        if (msg.startsWith(this.name)) {
+            if (!keepName.some(s => msg.startsWith(`${this.name}${s}`))) {
+                message.message = msg.replace(this.name, '');
+            }
+
+            result.push(message);
+        }
     }
 }
