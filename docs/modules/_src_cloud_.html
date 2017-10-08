@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;api&quot; | Blockheads-Api</title>
+	<title>&quot;src/cloud&quot; | Blockheads-Api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_api_.html">&quot;api&quot;</a>
+					<a href="_src_cloud_.html">&quot;src/cloud&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;api&quot;</h1>
+			<h1>External module &quot;src/cloud&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -69,56 +69,105 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
+							<h3>Classes</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_api_.logentry.html" class="tsd-kind-icon">Log<wbr>Entry</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_api_.worldapi.html" class="tsd-kind-icon">World<wbr>Api</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_api_.worldinfo.html" class="tsd-kind-icon">World<wbr>Info</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_api_.worldlists.html" class="tsd-kind-icon">World<wbr>Lists</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_api_.worldoverview.html" class="tsd-kind-icon">World<wbr>Overview</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_src_cloud_.api.html" class="tsd-kind-icon">Api</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Type aliases</h3>
+							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_api_.html#worldprivacy" class="tsd-kind-icon">World<wbr>Privacy</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_api_.html#worldsizes" class="tsd-kind-icon">World<wbr>Sizes</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_src_cloud_.html#getworlds" class="tsd-kind-icon">get<wbr>Worlds</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_src_cloud_.html#login" class="tsd-kind-icon">login</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_src_cloud_.html#setfetch" class="tsd-kind-icon">set<wbr>Fetch</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="worldprivacy" class="tsd-anchor"></a>
-					<h3>World<wbr>Privacy</h3>
-					<div class="tsd-signature tsd-kind-icon">World<wbr>Privacy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"public"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"searchable"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"private"</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/242d560/src/api.ts#L63">api.ts:63</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The possible privacy settings for a world.</p>
-						</div>
-					</div>
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="getworlds" class="tsd-anchor"></a>
+					<h3>get<wbr>Worlds</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Worlds<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_src_api_.worldinfo.html" class="tsd-signature-type">WorldInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/576a394/src/cloud.ts#L92">src/cloud.ts:92</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets all worlds owned by the logged in user.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_src_api_.worldinfo.html" class="tsd-signature-type">WorldInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="worldsizes" class="tsd-anchor"></a>
-					<h3>World<wbr>Sizes</h3>
-					<div class="tsd-signature tsd-kind-icon">World<wbr>Sizes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"1/16x"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"1/4x"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"1x"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"4x"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"16x"</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/242d560/src/api.ts#L58">api.ts:58</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The possible sizes that a world can be.</p>
-						</div>
-					</div>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="login" class="tsd-anchor"></a>
+					<h3>login</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">login<span class="tsd-signature-symbol">(</span>username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/576a394/src/cloud.ts#L67">src/cloud.ts:67</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Function to try to log in, if the log in fails, the returned promise will reject, otherwise it will resolve.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>username: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the username to try to log in with</p>
+									</div>
+								</li>
+								<li>
+									<h5>password: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the password to try to log in with</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="setfetch" class="tsd-anchor"></a>
+					<h3>set<wbr>Fetch</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Fetch<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">fetch</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/576a394/src/cloud.ts#L22">src/cloud.ts:22</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fn: <span class="tsd-signature-type">fetch</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -128,48 +177,60 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_src_api_.html">"src/api"</a>
+					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_api_.html">"api"</a>
+						<a href="_src_cloud_.html">"src/cloud"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_cloud_.html">"cloud"</a>
+						<a href="_src_cloud_test_.html">"src/cloud.test"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_logs_mac_.html">"logs/mac"</a>
+						<a href="_src_logs_mac_.html">"src/logs/mac"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_logs_portal_.html">"logs/portal"</a>
+						<a href="_src_logs_mac_test_.html">"src/logs/mac.test"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_logs_portal_test_.html">"logs/portal.test"</a>
+						<a href="_src_logs_portal_.html">"src/logs/portal"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_mac_.html">"mac"</a>
+						<a href="_src_logs_portal_test_.html">"src/logs/portal.test"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_src_mac_.html">"src/mac"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_src_sha1_.html">"src/sha1"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_src_sha1_test_.html">"src/sha1.test"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="_node_modules_typed_promisify_index_.html">"node_<wbr>modules/typed-<wbr>promisify/index"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_api_.logentry.html" class="tsd-kind-icon">Log<wbr>Entry</a>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_src_cloud_.api.html" class="tsd-kind-icon">Api</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_api_.worldapi.html" class="tsd-kind-icon">World<wbr>Api</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_src_cloud_.html#getworlds" class="tsd-kind-icon">get<wbr>Worlds</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_api_.worldinfo.html" class="tsd-kind-icon">World<wbr>Info</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_src_cloud_.html#login" class="tsd-kind-icon">login</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_api_.worldlists.html" class="tsd-kind-icon">World<wbr>Lists</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_api_.worldoverview.html" class="tsd-kind-icon">World<wbr>Overview</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_api_.html#worldprivacy" class="tsd-kind-icon">World<wbr>Privacy</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_api_.html#worldsizes" class="tsd-kind-icon">World<wbr>Sizes</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_src_cloud_.html#setfetch" class="tsd-kind-icon">set<wbr>Fetch</a>
 					</li>
 				</ul>
 			</nav>

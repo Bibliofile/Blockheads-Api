@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PortalLogParser | Blockheads-Api</title>
+	<title>WorldInfo | Blockheads-Api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_logs_portal_.html">&quot;logs/portal&quot;</a>
+					<a href="../modules/_src_api_.html">&quot;src/api&quot;</a>
 				</li>
 				<li>
-					<a href="_logs_portal_.portallogparser.html">PortalLogParser</a>
+					<a href="_src_api_.worldinfo.html">WorldInfo</a>
 				</li>
 			</ul>
-			<h1>Class PortalLogParser</h1>
+			<h1>Interface WorldInfo</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Parses logs from the portal into a standard format. This is only used by the [[PortalApi]] class. If you are consuming this library, you don&#39;t need to know anything about it.</p>
+						<p>Information about a world</p>
 					</div>
 				</div>
 			</section>
@@ -78,7 +78,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PortalLogParser</span>
+						<span class="target">WorldInfo</span>
 					</li>
 				</ul>
 			</section>
@@ -87,79 +87,46 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_logs_portal_.portallogparser.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Methods</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_logs_portal_.portallogparser.html#parse" class="tsd-kind-icon">parse</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_src_api_.worldinfo.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_src_api_.worldinfo.html#name" class="tsd-kind-icon">name</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Portal<wbr>Log<wbr>Parser<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_logs_portal_.portallogparser.html" class="tsd-signature-type">PortalLogParser</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/242d560/src/logs/portal.ts#L7">logs/portal.ts:7</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates a new instance of the PortalLogParser class.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <a href="_logs_portal_.portallogparser.html" class="tsd-signature-type">PortalLogParser</a></h4>
-						</li>
-					</ul>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/576a394/src/api.ts#L30">src/api.ts:30</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The world&#39;s ID. For cloud worlds, this will be a numeric string. For mac worlds this will be the folder which the world is stored under.</p>
+						</div>
+					</div>
 				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="parse" class="tsd-anchor"></a>
-					<h3>parse</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">parse<span class="tsd-signature-symbol">(</span>lines<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_api_.logentry.html" class="tsd-signature-type">LogEntry</a><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/242d560/src/logs/portal.ts#L21">logs/portal.ts:21</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Parses the logs into a standard format.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>lines: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>the raw log lines.</p>
-										</div>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_api_.logentry.html" class="tsd-signature-type">LogEntry</a><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/576a394/src/api.ts#L26">src/api.ts:26</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The name of the world</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -169,43 +136,82 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_api_.html">"api"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_cloud_.html">"cloud"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_logs_mac_.html">"logs/mac"</a>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_logs_portal_.html">"logs/portal"</a>
+						<a href="../modules/_src_api_.html">"src/api"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_logs_portal_test_.html">"logs/portal.test"</a>
+						<a href="../modules/_src_cloud_.html">"src/cloud"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_mac_.html">"mac"</a>
+						<a href="../modules/_src_cloud_test_.html">"src/cloud.test"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_src_logs_mac_.html">"src/logs/mac"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_src_logs_mac_test_.html">"src/logs/mac.test"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_src_logs_portal_.html">"src/logs/portal"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_src_logs_portal_test_.html">"src/logs/portal.test"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_src_mac_.html">"src/mac"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_src_sha1_.html">"src/sha1"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_src_sha1_test_.html">"src/sha1.test"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_node_modules_typed_promisify_index_.html">"node_<wbr>modules/typed-<wbr>promisify/index"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_src_api_.logentry.html" class="tsd-kind-icon">Log<wbr>Entry</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_src_api_.worldapi.html" class="tsd-kind-icon">World<wbr>Api</a>
+					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_logs_portal_.portallogparser.html" class="tsd-kind-icon">Portal<wbr>Log<wbr>Parser</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_src_api_.worldinfo.html" class="tsd-kind-icon">World<wbr>Info</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_logs_portal_.portallogparser.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_src_api_.worldinfo.html#id" class="tsd-kind-icon">id</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_logs_portal_.portallogparser.html#parse" class="tsd-kind-icon">parse</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_src_api_.worldinfo.html#name" class="tsd-kind-icon">name</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_src_api_.worldlists.html" class="tsd-kind-icon">World<wbr>Lists</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_src_api_.worldoverview.html" class="tsd-kind-icon">World<wbr>Overview</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_src_api_.html#worldprivacy" class="tsd-kind-icon">World<wbr>Privacy</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_src_api_.html#worldsizes" class="tsd-kind-icon">World<wbr>Sizes</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

@@ -67,6 +67,7 @@
 				<h2 id="documentation">Documentation</h2>
 				<p>Available <a href="https://bibliofile.github.io/Blockheads-Api/">here</a></p>
 				<h2 id="usage">Usage</h2>
+				<p>Note: This module uses ES Modules, if you are including it in a standard node project, you need to require <a href="https://www.npmjs.com/package/@std/esm"><code>@std/esm</code></a> first or transpile the code.</p>
 				<ol>
 					<li>Install with <code>npm install --save blockheads-api</code> or, if you prefer yarn, <code>yarn add blockheads-api</code></li>
 					<li>Include the applicable module.</li>
@@ -85,7 +86,7 @@ setFetch(<span class="hljs-built_in">require</span>(<span class="hljs-string">'f
 <span class="hljs-comment">// Will prevent your script from exiting once processing is done.</span>
 watchChat();
 <span class="hljs-comment">// Stops the syslog listener for chat</span>
-unwatchCHat();
+unwatchChat();
 </code></pre>
 				<h2 id="examples">Examples</h2>
 				<p>List all worlds</p>
@@ -111,23 +112,44 @@ getWorlds().then(<span class="hljs-function"><span class="hljs-params">worlds</s
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_api_.html">"api"</a>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_cloud_.html">"cloud"</a>
+						<a href="modules/_src_api_.html">"src/api"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_logs_mac_.html">"logs/mac"</a>
+						<a href="modules/_src_cloud_.html">"src/cloud"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_logs_portal_.html">"logs/portal"</a>
+						<a href="modules/_src_cloud_test_.html">"src/cloud.test"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_logs_portal_test_.html">"logs/portal.test"</a>
+						<a href="modules/_src_logs_mac_.html">"src/logs/mac"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_mac_.html">"mac"</a>
+						<a href="modules/_src_logs_mac_test_.html">"src/logs/mac.test"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_src_logs_portal_.html">"src/logs/portal"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_src_logs_portal_test_.html">"src/logs/portal.test"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_src_mac_.html">"src/mac"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_src_sha1_.html">"src/sha1"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_src_sha1_test_.html">"src/sha1.test"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_node_modules_typed_promisify_index_.html">"node_<wbr>modules/typed-<wbr>promisify/index"</a>
 					</li>
 				</ul>
 			</nav>
