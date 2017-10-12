@@ -1,6 +1,6 @@
 {
   "name": "blockheads-api",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "APIs for interacting with cloud servers and mac servers without requiring changes to your code.",
   "main": "cloud.js",
   "types": "could.d.ts",
@@ -24,5 +24,9 @@
     "report": "nyc report --reporter=html --reporter=lcov",
     "docs": "typedoc --out docs --mode modules --name Blockheads-Api --excludeNotExported --excludePrivate && echo Save >> docs/.nojekyll",
     "prepare": "npm run build"
+  },
+  "@std/esm": {
+    "esm": "js",
+    "cjs": true
   }
 }
