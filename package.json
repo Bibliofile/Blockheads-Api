@@ -12,6 +12,7 @@
     "typed-promisify": "^0.4.0"
   },
   "devDependencies": {
+    "@std/esm": "^0.11.3",
     "ava": "^0.22.0",
     "nyc": "^11.2.1",
     "tslint": "^5.7.0",
@@ -20,10 +21,15 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "tsc --module CommonJS && nyc ava",
+    "test": "tsc && nyc ava",
     "report": "nyc report --reporter=html --reporter=lcov",
     "docs": "typedoc --out docs --mode modules --name Blockheads-Api --excludeNotExported --excludePrivate && echo Save >> docs/.nojekyll",
     "prepare": "npm run build"
+  },
+  "nyc": {
+    "require": [
+      "@std/esm"
+    ]
   },
   "@std/esm": {
     "esm": "js",

@@ -75,7 +75,7 @@ export async function login(username: string, password: string): Promise<void> {
     if (info.status != 'ok') throw new Error('Bad API response.');
 
     let hashedPass = sha1(info.salt + password);
-    hashedPass += sha1(hashedPass + info.salt2);
+    hashedPass = sha1(hashedPass + info.salt2);
 
     let body = `seed=${info.seed}&password=${hashedPass}&username=${encodeURIComponent(username)}`;
 
