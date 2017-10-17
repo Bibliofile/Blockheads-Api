@@ -295,7 +295,7 @@ test(`send should throw if unable to send`, async t => {
     try {
         await prom;
         t.fail();
-    } catch {
+    } catch (_) {
         t.pass();
     }
 });

@@ -1,4 +1,11 @@
-// Functions defined in 4.1.1
+/**
+ * This is an internal module which should not be used by library consumers.
+ * @private
+ */
+
+/**
+ * Functions defined in 4.1.1
+ */
 function f(t: number, b: number, c: number, d: number): number {
     if (t <= 19) return (b & c) ^ (~b & d);
     if (t <= 39) return b ^ c ^ d;
@@ -27,7 +34,7 @@ function toHex(int: number): string {
  * See http://www.movable-type.co.uk/scripts/sha1.html for explanation of some of the bitwise magic.
  *
  * You probably don't want to touch this code.
- *
+ * @private
  * @param message the string to compute the SHA1 hash of
  */
 export function sha1(message: string): string {

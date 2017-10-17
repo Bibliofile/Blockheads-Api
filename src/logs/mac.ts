@@ -1,5 +1,14 @@
+/**
+ * This module should not be used by consumers of this library.
+ * @private
+ */
+
 import { LogEntry } from '../api';
 
+/**
+ * This class should not be used by consumers of the library. It is used internally.
+ * @private
+ */
 export class LogParser {
     private validLineStart = /^[A-Z][a-z]{2} ( |\d)\d \d\d:\d\d:\d\d ([\w\-]+) BlockheadsServer/;
 

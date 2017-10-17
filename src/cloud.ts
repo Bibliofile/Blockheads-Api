@@ -16,7 +16,7 @@ const root = 'http://portal.theblockheads.net';
 let request: typeof fetch;
 try {
     request = fetch;
-} catch {}
+} catch (_) {}
 
 // Makes it possible to set the fetch function which the module uses. Necessary for terminal usage.
 export function setFetch(fn: typeof fetch): void {

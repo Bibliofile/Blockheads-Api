@@ -1,7 +1,13 @@
+/**
+ * This module should not be used by consumers of this library.
+ * @private
+ */
+
 import {LogEntry} from '../api';
 
 /**
- * Parses logs from the portal into a standard format. This is only used by the [[PortalApi]] class. If you are consuming this library, you don't need to know anything about it.
+ * Parses logs from the portal into a standard format. If you are consuming this library, you don't need to know anything about it.
+ * @private
  */
 export class PortalLogParser {
     private entries: LogEntry[];
