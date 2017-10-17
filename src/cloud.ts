@@ -79,7 +79,7 @@ export async function login(username: string, password: string): Promise<void> {
 
     let body = `seed=${info.seed}&password=${hashedPass}&username=${encodeURIComponent(username)}`;
 
-    let page = await requestPage('/login', {body});
+    let page = await requestPage('/login', { body, method: 'POST' });
 
     if (page.includes('Invalid username / password')) {
         throw new Error('Invalid username or password.');

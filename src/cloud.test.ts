@@ -88,6 +88,7 @@ const test = baseTest.serial;
 
 test(`login should throw if the seed request does not return correctly`, async t => {
     let prom = login('user', 'pass');
+    t.is(t.context.requests[0].init.method, 'POST');
     respondToLastRequest(t.context.requests, {status: 'error'});
 
     try {
@@ -104,6 +105,7 @@ test(`login should hash the password with the response seeds`, async t => {
     await tick();
 
     t.is(t.context.requests[1].init.body, `seed=seed&password=4e0baf7163c6b14bcc218b48cec1f17268f24d0b&username=USER`);
+    t.is(t.context.requests[0].init.method, 'POST');
 });
 
 test(`login should throw if the password is invalid`, async t => {
