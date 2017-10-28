@@ -180,6 +180,7 @@ export class Api implements WorldApi {
             size,
             whitelist: whitelist.split('\n').length > 2,
             online: onlinePlayers,
+            status: 'online' // TODO: Fix this, needs a new JavaScript for Automation script
         };
     }
 

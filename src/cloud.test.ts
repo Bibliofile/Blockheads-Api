@@ -209,6 +209,7 @@ test(`getOverview should correctly return the world overview`, async t => {
         size: '4x',
         whitelist: true,
         online: [],
+        status: 'offline'
     });
 });
 
@@ -233,6 +234,7 @@ test(`getOverview should correctly return the world overview with online players
         size: '4x',
         whitelist: true,
         online: ['BIBLIOPHILE'],
+        status: 'online'
     });
 });
 

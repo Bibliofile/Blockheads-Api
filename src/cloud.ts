@@ -5,7 +5,8 @@ import {
     WorldOverview,
     LogEntry,
     WorldPrivacy,
-    WorldSizes
+    WorldSizes,
+    WorldStates
 } from './api';
 
 import { PortalLogParser } from './logs/portal';
@@ -179,7 +180,7 @@ export class Api implements WorldApi {
             created: new Date(firstMatch(/^\t\t<td>Created:<\/td><td>(.*?)<\/td>$/m) + ' GMT-0000'),
             last_activity: new Date(firstMatch(/^\t\t<td>Last Activity:<\/td><td>(.*?)<\/td>$/m) + ' GMT-0000'),
             credit_until: new Date(firstMatch(/^\t\t<td>Credit Until:<\/td><td>(.*?)<\/td>$/m) + ' GMT-0000'),
-            link: firstMatch(/^\t<tr><td>Link:<\/td><td><a href="(.*)">\1<\/a>/m),
+            link: firstMatch(/^\t<tr><td>Link:<\/td><td><a href="(.*?)">\1<\/a>/m),
 
             pvp: !!firstMatch(/^\$\('#pvp'\)\./m),
             privacy,
@@ -188,6 +189,7 @@ export class Api implements WorldApi {
             whitelist: firstMatch(/<td>Whitelist:<\/td><td>(Yes|No)<\/td>/m) == 'Yes',
 
             online,
+            status: firstMatch(/^updateWorld\({id: \d+, worldStatus: '(.*?)'/m) as WorldStates
         };
     }
 

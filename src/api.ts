@@ -63,6 +63,11 @@ export type WorldSizes = '1/16x' | '1/4x' | '1x' | '4x' | '16x';
 export type WorldPrivacy = 'public' | 'searchable' | 'private';
 
 /**
+ * The possible states a world can be in.
+ */
+export type WorldStates = 'online' | 'offline' | 'startup' | 'shutdown';
+
+/**
  * General information about a world.
  */
 export interface WorldOverview {
@@ -117,6 +122,11 @@ export interface WorldOverview {
      * The names of players currently online.
      */
     online: string[];
+
+    /**
+     * The current state of the world.
+     */
+    status: WorldStates;
 }
 
 /**
