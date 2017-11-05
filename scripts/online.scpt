@@ -1,6 +1,12 @@
 'use strict';
 
 ObjC.import('stdlib');
+var log = function(message) {
+    ObjC.import('Foundation');
+    $.NSFileHandle.fileHandleWithStandardOutput
+        .writeData($.NSString.alloc.initWithString(message)
+        .dataUsingEncoding($.NSNEXTSTEPStringEncoding));
+}
 
 function run([world]) {
     var se = Application('System Events');
@@ -48,7 +54,7 @@ function run([world]) {
         name = name.substr(0, name.lastIndexOf('(') - 1);
         players.push(name);
     }
-    console.log(JSON.stringify(players));
+    log(JSON.stringify(players));
 
     // Hide the app if it was hidden before.
     if (!isVisible) {

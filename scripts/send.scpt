@@ -2,20 +2,28 @@
 
 ObjC.import('stdlib');
 
+var log = function(message) {
+    ObjC.import('Foundation');
+    $.NSFileHandle.fileHandleWithStandardOutput
+        .writeData($.NSString.alloc.initWithString(message)
+        .dataUsingEncoding($.NSNEXTSTEPStringEncoding));
+}
+
+
 function run([world, text]) {
     var se = Application('System Events');
     var app = Application('com.majicjungle.BlockheadsServer');
 
     // Make sure we have all arguments
     if (!world || !text) {
-        console.log('fail');
+        log('fail');
         $.exit(1);
     }
     world = world.toLocaleUpperCase();
 
     // If the app isn't running, exit with an error code
     if (!app.running()) {
-        console.log('fail');
+        log('fail');
         $.exit(2);
     }
 

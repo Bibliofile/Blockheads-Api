@@ -27,7 +27,7 @@ interface WorldV2 {
     creationDate: Date;
     saveDate: Date;
     worldName: string;
-    worldSize: number;
+    worldWidthMacro: number;
     pvpDisabled: boolean;
     hostPort: string;
 }
@@ -146,33 +146,20 @@ export class Api implements WorldApi {
         ]);
         let onlinePlayers: string[] = JSON.parse(online);
 
-        let size: WorldSizes;
-        switch(info.worldSize) {
-            case 512 * 1/16:
-                size = '1/16x';
-                break;
-            case 512 * 1/4:
-                size = '1/4x';
-                break;
-            case 512 * 1:
-                size = '1x';
-                break;
-            case 512 * 4:
-                size = '4x';
-                break;
-            case 512 * 16:
-                size = '16x';
-                break;
-            default:
-                size = '1x';
-        }
+        let size: WorldSizes = ({
+            '32': '1/16x',
+            '128': '1/4x',
+            '512': '1x',
+            '2048': '4x',
+            '8192': '16x',
+        } as {[k: string]: WorldSizes})[info.worldWidthMacro]
 
         return {
             name: info.worldName,
             owner: 'SERVER',
             created: info.creationDate,
             last_activity: info.saveDate,
-            credit_until: new Date('12/30/9999'),
+            credit_until: new Date(253402128000000),
             link: 'http://forums.theblockheads.net/', // Not ideal...
             pvp: !info.pvpDisabled,
             privacy: 'private',
@@ -205,7 +192,7 @@ export class Api implements WorldApi {
 
     /** @inheritdoc */
     send = (message: string): Promise<void> => {
-        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/send.scpt" ${JSON.stringify(this.info.name)} ${JSON.stringify(message)} 2>&1`)
+        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/send.scpt" ${JSON.stringify(this.info.name)} ${JSON.stringify(message)}`)
             .then(output => {
                 if (output.includes('fail')) {
                     throw new Error('Unable to send message');

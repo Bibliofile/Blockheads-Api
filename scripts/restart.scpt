@@ -38,6 +38,7 @@ function run([world]) {
     // Click the stop button, as described in api.ts, if the world is offline nothing should be done.
     if (win.buttons.at(2).title() == 'Stop') {
         win.buttons.at(2).click();
+        delay(0.5);
         win.buttons.at(2).click();
     }
 
