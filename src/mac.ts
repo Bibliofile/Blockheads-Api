@@ -15,7 +15,7 @@ const execAsync = promisify<string, string>(exec);
 
 import * as zlib from 'zlib';
 import { LogParser } from './logs/mac';
-import { WorldInfo, WorldApi, WorldLists, WorldSizes, WorldOverview, LogEntry } from './api';
+import { WorldInfo, WorldApi, WorldLists, WorldSizes, WorldOverview, LogEntry, WorldStatus } from './api';
 
 const plist = require('simple-plist') as {
     readFile: (file: string, callback: (err: Error | null, data: Object) => void) => void,
@@ -152,7 +152,7 @@ export class Api implements WorldApi {
             '512': '1x',
             '2048': '4x',
             '8192': '16x',
-        } as {[k: string]: WorldSizes})[info.worldWidthMacro]
+        } as {[k: string]: WorldSizes})[info.worldWidthMacro];
 
         return {
             name: info.worldName,
@@ -188,6 +188,13 @@ export class Api implements WorldApi {
         log += await readFileAsync('/private/var/log/system.log');
 
         return new LogParser(this.info.name).parse(log);
+    }
+
+    /** @inheritdoc */
+    getStatus = (): Promise<WorldStatus> => {
+        const status: WorldStatus = 'online';
+        // Todo, needs a new script to interact with the world app
+        return Promise.resolve(status);
     }
 
     /** @inheritdoc */

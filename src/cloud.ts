@@ -6,7 +6,7 @@ import {
     LogEntry,
     WorldPrivacy,
     WorldSizes,
-    WorldStates
+    WorldStatus
 } from './api';
 
 import { PortalLogParser } from './logs/portal';
@@ -189,7 +189,7 @@ export class Api implements WorldApi {
             whitelist: firstMatch(/<td>Whitelist:<\/td><td>(Yes|No)<\/td>/m) == 'Yes',
 
             online,
-            status: firstMatch(/^updateWorld\({id: \d+, worldStatus: '(.*?)'/m) as WorldStates
+            status: firstMatch(/^updateWorld\({id: \d+, worldStatus: '(.*?)'/m) as WorldStatus
         };
     }
 
@@ -210,6 +210,14 @@ export class Api implements WorldApi {
             if (status != 'ok') return {log: [], nextId: 0}; // Reset, world likely offline.
             return {nextId, log};
         }, () => ({log: [], nextId: lastId})); //Network error, don't reset nextId
+    }
+
+    /** @inheritdoc */
+    getStatus = (): Promise<WorldStatus> => {
+        return requestJSON('/api', {
+            method: 'POST',
+            body: `command=status&worldId=${this.info.id}`
+        }).then(response => response.worldStatus);
     }
 
     /** @inheritdoc */

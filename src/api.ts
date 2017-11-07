@@ -65,7 +65,7 @@ export type WorldPrivacy = 'public' | 'searchable' | 'private';
 /**
  * The possible states a world can be in.
  */
-export type WorldStates = 'online' | 'offline' | 'startup' | 'shutdown';
+export type WorldStatus = 'online' | 'offline' | 'startup' | 'shutdown' | 'stopping' | 'storing' | 'deleting' | 'move' | 'maintenance' | 'unavailable';
 
 /**
  * General information about a world.
@@ -126,7 +126,7 @@ export interface WorldOverview {
     /**
      * The current state of the world.
      */
-    status: WorldStates;
+    status: WorldStatus;
 }
 
 /**
@@ -158,6 +158,8 @@ export interface WorldApi {
      * Gets messages since the last timestamp
      */
     getMessages(lastId: number): Promise<{nextId: number, log: string[]}>;
+
+    getStatus(): Promise<WorldStatus>;
 
     /**
      * Starts a world if it is not already running.
