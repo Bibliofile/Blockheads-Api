@@ -12,19 +12,19 @@
     "typed-promisify": "^0.4.0"
   },
   "devDependencies": {
-    "@std/esm": "^0.11.3",
-    "ava": "^0.22.0",
+    "@std/esm": "0.13.0",
+    "ava": "^0.23.0",
     "nyc": "^11.2.1",
-    "tslint": "^5.7.0",
+    "tslint": "^5.8.0",
     "typedoc": "0.8.0",
-    "typescript": "^2.5.3"
+    "typescript": "^2.6.1"
   },
   "scripts": {
     "build": "tsc",
     "test": "tsc && nyc ava",
     "test:mac": "nyc ava mac.test.noautorun.js",
     "report": "nyc report --reporter=html --reporter=lcov",
-    "docs": "typedoc --out docs --exclude \"**/{logs/*,sha1.ts,*test.ts}\" --excludePrivate --excludeNotExported && echo Save >> docs/.nojekyll",
+    "docs": "typedoc --out docs --exclude \"**/{logs/*,*sha1.ts,*test.ts,*.test.noautorun.ts}\" --excludePrivate --excludeNotExported && echo Save >> docs/.nojekyll",
     "prepare": "npm run build"
   },
   "nyc": {

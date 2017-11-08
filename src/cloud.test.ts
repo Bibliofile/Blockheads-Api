@@ -19,6 +19,7 @@ class MockResponse implements Response {
     ok: boolean;
     status: number;
     statusText: string;
+    redirected: boolean = false;
     type: ResponseType = 'cors';
     url: string = '';
     bodyUsed: boolean = false;
@@ -324,4 +325,12 @@ test(`restart should restart the world`, async t => {
     t.is(t.context.requests[0].init.body, `command=reboot&worldId=123`);
     respondToLastRequest(t.context.requests, {status: 'ok'});
     await prom;
+});
+
+test(`getStatus should get the world status`, async t => {
+    let api = new Api({ name: 'AIRSTEDDING', id: '123' });
+    let prom = api.getStatus();
+    t.is(t.context.requests[0].init.body, `command=status&worldId=123`);
+    respondToLastRequest(t.context.requests, { status: 'ok', worldStatus: 'online'});
+    t.is(await prom, 'online');
 });
