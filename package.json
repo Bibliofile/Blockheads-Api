@@ -8,8 +8,7 @@
   "author": "Bibliofile <bibliofilegit@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
-    "simple-plist": "^0.2.1",
-    "typed-promisify": "^0.4.0"
+    "simple-plist": "^0.2.1"
   },
   "devDependencies": {
     "@std/esm": "0.16.0",

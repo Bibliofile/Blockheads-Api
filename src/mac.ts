@@ -1,27 +1,54 @@
-// Once Node 8 LTS is out, update this to use util.promisify()
-import { promisify } from 'typed-promisify'
-import {readFile, writeFile, readdir } from 'fs'
-
-function readFileAsync(path: string, encoding: string): Promise<string>
-function readFileAsync(path: string): Promise<Buffer>
-function readFileAsync(...args: any[]): Promise<any> {
-    return (promisify(readFile) as Function)(...args)
-}
-const writeFileAsync = promisify(writeFile) as (path: string | Buffer, data: any) => void
-const readdirAsync = promisify<string | Buffer, string[]>(readdir)
-
-import { exec, ChildProcess } from 'child_process'
-const execAsync = promisify<string, string>(exec)
-
+import { readFile, writeFile, readdir } from 'fs'
 import * as zlib from 'zlib'
 import { LogParser } from './logs/mac'
 import { WorldInfo, WorldApi, WorldLists, WorldSizes, WorldOverview, LogEntry, WorldStatus } from './api'
+import { promisify } from 'util'
+import { spawn, exec, ChildProcess } from 'child_process'
+
+function readFileBuffer(path: string): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+        readFile(path, (err, data) => err ? reject(err) : resolve(data))
+    })
+}
+
+function readFileString(path: string): Promise<string> {
+    return readFileBuffer(path).then(data => data.toString('utf8'))
+}
+
+function writeFileAsync(path: string, data: any): Promise<void> {
+    return new Promise((resolve, reject) => {
+        writeFile(path, data, err => err ? reject(err) : resolve())
+    })
+}
+
+function readDirAsync(path: string): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+        readdir(path, (err, files) => err ? reject(err) : resolve(files))
+    })
+}
+
+function spawnAsync(command: string, args: string[]): Promise<string> {
+    return new Promise((resolve, reject) => {
+        let stdout = ''
+        const child = spawn(command, args)
+        child.on('message', message => stdout += message.toString('utf8'))
+        child.on('error', reject)
+        child.on('exit', code => code ? reject(code) : resolve(stdout))
+    })
+}
+function runScript(script: string, ...args: string[]): Promise<string> {
+    return spawnAsync('osascript', [
+        '-l', 'JavaScript',
+        `${__dirname}/scripts/${script}`,
+        ...args
+    ])
+}
 
 const plist = require('simple-plist') as {
     readFile: (file: string, callback: (err: Error | null, data: Object) => void) => void,
     readFileSync: (file: string) => Object
 }
-const readPlistAsync = promisify<string, Object>(plist.readFile)
+const readPlistAsync = promisify(plist.readFile) as (path: string) => Object
 
 interface WorldV2 {
     creationDate: Date
@@ -80,7 +107,7 @@ export function unwatchChat() {
  * Gets all worlds owned by the logged in user.
  */
 export const getWorlds = async (): Promise<WorldInfo[]> => {
-    let files = await readdirAsync(root)
+    let files = await readDirAsync(root)
     files = files.filter(worldFolder => !worldFolder.startsWith('.'))
     const worlds = await Promise.all(files.map(getWorldInfo))
 
@@ -94,15 +121,15 @@ export const getWorlds = async (): Promise<WorldInfo[]> => {
 
 /** @inheritdoc */
 export class Api implements WorldApi {
-    constructor(private info: WorldInfo) {}
+    constructor(private info: WorldInfo) { }
 
     /** @inheritdoc */
     getLists = async (): Promise<WorldLists> => {
         const lists = await Promise.all([
-            readFileAsync(root + this.info.id + '/adminlist.txt', 'utf8'),
-            readFileAsync(root + this.info.id + '/modlist.txt', 'utf8'),
-            readFileAsync(root + this.info.id + '/whitelist.txt', 'utf8'),
-            readFileAsync(root + this.info.id + '/blacklist.txt', 'utf8'),
+            readFileString(root + this.info.id + '/adminlist.txt'),
+            readFileString(root + this.info.id + '/modlist.txt'),
+            readFileString(root + this.info.id + '/whitelist.txt'),
+            readFileString(root + this.info.id + '/blacklist.txt'),
         ])
 
         // Remove duplicates and empty lines
@@ -125,7 +152,7 @@ export class Api implements WorldApi {
             lists[key].unshift('First line is ignored.')
             carry[key] = lists[key].join('\n')
             return carry
-        }, {} as {[k: string]: string})
+        }, {} as { [k: string]: string })
 
         await Promise.all([
             writeFileAsync(root + this.info.id + '/adminlist.txt', names.adminlist),
@@ -141,8 +168,8 @@ export class Api implements WorldApi {
     getOverview = async (): Promise<WorldOverview> => {
         const [info, online, whitelist] = await Promise.all([
             getWorldInfo(this.info.id),
-            execAsync(`osascript -l JavaScript "${__dirname}/scripts/online.scpt" ${JSON.stringify(this.info.name)}`),
-            readFileAsync(`${root}${this.info.id}/whitelist.txt`, 'utf8')
+            runScript('online.scpt', this.info.name),
+            readFileString(`${root}${this.info.id}/whitelist.txt`)
         ])
         const onlinePlayers: string[] = JSON.parse(online)
 
@@ -152,7 +179,7 @@ export class Api implements WorldApi {
             '512': '1x',
             '2048': '4x',
             '8192': '16x',
-        } as {[k: string]: WorldSizes})[info.worldWidthMacro]
+        } as { [k: string]: WorldSizes })[info.worldWidthMacro]
 
         return {
             name: info.worldName,
@@ -176,16 +203,16 @@ export class Api implements WorldApi {
         // Notes: /private/var/log contains system.log (text) and system.log.#.gz.
         // system.log.0.gz is newer than system.log.1.gz.
         // readdir returns the files in the order of 0..1..2
-        const files = (await readdirAsync('/private/var/log/'))
+        const files = (await readDirAsync('/private/var/log/'))
             .filter(name => name.startsWith('system.log.'))
 
-        const logs = await Promise.all(files.map(file => readFileAsync(`/private/var/log/${file}`)))
+        const logs = await Promise.all(files.map(file => readFileBuffer(`/private/var/log/${file}`)))
 
         // Reduce to a single string, oldest line on top
         let log = logs.reduceRight((carry, log) => {
             return carry + zlib.gunzipSync(log).toString('utf8')
         }, '')
-        log += await readFileAsync('/private/var/log/system.log')
+        log += await readFileString('/private/var/log/system.log')
 
         return new LogParser(this.info.name).parse(log)
     }
@@ -199,7 +226,7 @@ export class Api implements WorldApi {
 
     /** @inheritdoc */
     send = (message: string): Promise<void> => {
-        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/send.scpt" ${JSON.stringify(this.info.name)} ${JSON.stringify(message)}`)
+        return runScript('send.scpt', this.info.name, message)
             .then(output => {
                 if (output.includes('fail')) {
                     throw new Error('Unable to send message')
@@ -208,7 +235,7 @@ export class Api implements WorldApi {
     }
 
     /** @inheritdoc */
-    getMessages(lastId: number = 0): Promise<{nextId: number, log: string[]}> {
+    getMessages(lastId: number = 0): Promise<{ nextId: number, log: string[] }> {
         const nextId = sysLog.length ? sysLog[sysLog.length - 1][0] + 1 : 0
 
         const log = sysLog
@@ -229,19 +256,19 @@ export class Api implements WorldApi {
 
     /** @inheritdoc */
     start = (): Promise<void> => {
-        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/start.scpt" ${JSON.stringify(this.info.name)}`)
-            .then(() => undefined, console.error)
+        return runScript('start.scpt', this.info.name)
+            .then(() => void 0, console.error)
     }
 
     /** @inheritdoc */
     stop = (): Promise<void> => {
-        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/stop.scpt" ${JSON.stringify(this.info.name)}`)
+        return runScript('stop.scpt', this.info.name)
             .then(() => undefined, console.error)
     }
 
     /** @inheritdoc */
     restart = (): Promise<void> => {
-        return execAsync(`osascript -l JavaScript "${__dirname}/scripts/restart.scpt" ${JSON.stringify(this.info.name)}`)
+        return runScript('restart.scpt', this.info.name)
             .then(() => undefined, console.error)
     }
 }
