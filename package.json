@@ -24,7 +24,7 @@
     "test": "tsc && nyc ava",
     "test:mac": "nyc ava mac.test.noautorun.js",
     "report": "nyc report --reporter=html --reporter=lcov",
-    "docs": "typedoc --out docs --exclude \"**/{logs/*,*sha1.ts,*test.ts,*.test.noautorun.ts}\" --excludePrivate --excludeNotExported && echo Save >> docs/.nojekyll",
+    "docs": "typedoc src && echo Save >> docs/.nojekyll",
     "prepare": "npm run build"
   },
   "nyc": {

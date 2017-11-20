@@ -1,6 +1,6 @@
 /**
  * This is an internal module which should not be used by library consumers.
- * @private
+ * @hidden
  */
 
 /**

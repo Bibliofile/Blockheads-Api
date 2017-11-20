@@ -22,5 +22,14 @@
     ],
     "include": [
         "src/**/*"
-    ]
+    ],
+    "typedocOptions": {
+        "mode": "modules",
+        "out": "docs",
+        "name": "Blockheads-Api",
+        "excludePrivate": true,
+        "excludeNotExported": true,
+        "listInvalidSymbolLinks": true,
+        "exclude": "**/*{test,test.noautorun,logs/*}.ts"
+    }
 }
