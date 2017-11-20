@@ -1,6 +1,6 @@
 {
   "name": "blockheads-api",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "APIs for interacting with cloud servers and mac servers without requiring changes to your code.",
   "main": "cloud.js",
   "types": "could.d.ts",
