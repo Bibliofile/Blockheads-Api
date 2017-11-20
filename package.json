@@ -12,11 +12,11 @@
     "typed-promisify": "^0.4.0"
   },
   "devDependencies": {
-    "@std/esm": "0.13.0",
+    "@std/esm": "0.16.0",
     "ava": "^0.23.0",
     "nyc": "^11.2.1",
     "tslint": "^5.8.0",
-    "typedoc": "0.8.0",
+    "typedoc": "0.9.0",
     "typescript": "^2.6.1"
   },
   "scripts": {
