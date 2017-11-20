@@ -2,7 +2,8 @@
     "rules": {
         "indent": [true, "spaces"],
         "no-duplicate-variable": true,
-        "semicolon": [true, "always"],
+        "semicolon": [true, "never"],
+        "prefer-const": true,
         "cyclomatic-complexity": [true, 15],
         "no-invalid-this": [true, "check-function-in-method"]
     }

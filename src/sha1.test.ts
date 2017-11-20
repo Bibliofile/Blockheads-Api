@@ -1,14 +1,14 @@
-import test from 'ava';
+import test from 'ava'
 
-import { sha1 } from './sha1';
+import { sha1 } from './sha1'
 
 // Tests from https://www.di-mgt.com.au/sha_testvectors.html
 
 test(`Empty string`, t => {
-    t.is(sha1(''), 'da39a3ee5e6b4b0d3255bfef95601890afd80709');
-});
+    t.is(sha1(''), 'da39a3ee5e6b4b0d3255bfef95601890afd80709')
+})
 
-let tests = [
+const tests = [
     [
         'abc',
         'a9993e364706816aba3e25717850c26c9cd0d89d'
@@ -25,10 +25,10 @@ let tests = [
         'a'.repeat(1e6),
         '34aa973cd4c4daa4f61eeb2bdbad27316534016f'
     ]
-];
+]
 
-for (let [input, hash] of tests) {
+for (const [input, hash] of tests) {
     test(input.substr(0, 25), t => {
-        t.is(sha1(input), hash);
-    });
+        t.is(sha1(input), hash)
+    })
 }

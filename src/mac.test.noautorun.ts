@@ -19,16 +19,16 @@ const worldInfo: WorldInfo = {
 }
 
 test('Should send messages', async t => {
-    let api = new Api(worldInfo)
+    const api = new Api(worldInfo)
 
     api.send('Send me!')
     t.pass()
 })
 
 test('Should return a valid overview', async t => {
-    let api = new Api(worldInfo)
+    const api = new Api(worldInfo)
 
-    let overview = await api.getOverview()
+    const overview = await api.getOverview()
     delete overview.last_activity
 
     t.deepEqual(overview, {
@@ -48,28 +48,28 @@ test('Should return a valid overview', async t => {
 })
 
 test('Should be able to restart the server', async t => {
-    let api = new Api(worldInfo)
+    const api = new Api(worldInfo)
     await api.restart()
     t.pass()
 })
 
 test('Should be able to stop the server', async t => {
-    let api = new Api(worldInfo)
+    const api = new Api(worldInfo)
     await api.stop()
     t.pass()
 })
 
 test('Should be able to start the server', async t => {
-    let api = new Api(worldInfo)
+    const api = new Api(worldInfo)
     await api.start()
     t.pass()
 })
 
 test('Should get messages', async t => {
-    let api = new Api(worldInfo)
+    const api = new Api(worldInfo)
     watchChat()
     await delay(10 * 1000)
-    let messages = await api.getMessages()
+    const messages = await api.getMessages()
     delete messages.nextId // Indeterminant
     t.deepEqual(messages, {
         log: [

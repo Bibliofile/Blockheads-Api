@@ -7,39 +7,39 @@ import {
     WorldPrivacy,
     WorldSizes,
     WorldStatus
-} from './api';
+} from './api'
 
-import { PortalLogParser } from './logs/portal';
+import { PortalLogParser } from './logs/portal'
 
-import { sha1 } from './sha1';
+import { sha1 } from './sha1'
 
-const root = 'http://portal.theblockheads.net';
-let request: typeof fetch;
+const root = 'http://portal.theblockheads.net'
+let request: typeof fetch
 try {
-    request = fetch;
+    request = fetch
 } catch (_) {}
 
 // Makes it possible to set the fetch function which the module uses. Necessary for terminal usage.
 export function setFetch(fn: typeof fetch): void {
-    request = fn;
+    request = fn
 }
 
 function unescapeHTML(html: string) {
-    let map: {[key: string]: string} = {
-        '&lt;': '<',
-        '&gt;': '>',
-        '&amp;': '&',
-        '&#39;': '\'',
-        '&quot;': '"',
-    };
+    const map: {[key: string]: string} = {
+        '&lt': '<',
+        '&gt': '>',
+        '&amp': '&',
+        '&#39': '\'',
+        '&quot': '"',
+    }
 
-    return html.replace(/(&.*?;)/g, (_, first: string) => map[first] as string);
+    return html.replace(/(&.*?)/g, (_, first: string) => map[first] as string)
 }
 
 function makeRequest (url: string, options: RequestInit = {}): Promise<Response> {
-    let headers: {[k: string]: string} = {'X-Requested-With': 'XMLHttpRequest'};
+    const headers: {[k: string]: string} = {'X-Requested-With': 'XMLHttpRequest'}
     if (options.method == 'POST') {
-        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
 
     return request(`${root}${url}`, {
@@ -49,15 +49,15 @@ function makeRequest (url: string, options: RequestInit = {}): Promise<Response>
         // Typescript incorrectly throws an error due to types here
         headers: headers as any,
         ...options
-    });
+    })
 }
 
 function requestJSON(url: string, options?: RequestInit): Promise<{[key: string]: any}> {
-    return makeRequest(url, options).then(r => r.json());
+    return makeRequest(url, options).then(r => r.json())
 }
 
 function requestPage(url: string, options?: RequestInit): Promise<string> {
-    return makeRequest(url, options).then(r => r.text());
+    return makeRequest(url, options).then(r => r.text())
 }
 
 /**
@@ -67,24 +67,24 @@ function requestPage(url: string, options?: RequestInit): Promise<string> {
  * @param password the password to try to log in with
  */
 export async function login(username: string, password: string): Promise<void> {
-    username = username.toLocaleUpperCase();
+    username = username.toLocaleUpperCase()
 
-    let info = await requestJSON('/login', {
+    const info = await requestJSON('/login', {
         method: 'POST',
         body: `username=${encodeURIComponent(username)}`,
-    }) as {salt: string, salt2: string, seed: string, status: string};
+    }) as {salt: string, salt2: string, seed: string, status: string}
 
-    if (info.status != 'ok') throw new Error('Bad API response.');
+    if (info.status != 'ok') throw new Error('Bad API response.')
 
-    let hashedPass = sha1(info.salt + password);
-    hashedPass = sha1(hashedPass + info.salt2);
+    let hashedPass = sha1(info.salt + password)
+    hashedPass = sha1(hashedPass + info.salt2)
 
-    let body = `seed=${info.seed}&password=${hashedPass}&username=${encodeURIComponent(username)}`;
+    const body = `seed=${info.seed}&password=${hashedPass}&username=${encodeURIComponent(username)}`
 
-    let page = await requestPage('/login', { body, method: 'POST' });
+    const page = await requestPage('/login', { body, method: 'POST' })
 
     if (page.includes('Invalid username / password')) {
-        throw new Error('Invalid username or password.');
+        throw new Error('Invalid username or password.')
     }
 }
 
@@ -92,85 +92,85 @@ export async function login(username: string, password: string): Promise<void> {
  * Gets all worlds owned by the logged in user.
  */
 export async function getWorlds(): Promise<WorldInfo[]> {
-    let page = await requestPage('/worlds');
-    let lines = page.split('\n');
+    const page = await requestPage('/worlds')
+    const lines = page.split('\n')
 
-    let worlds: WorldInfo[] = [];
+    const worlds: WorldInfo[] = []
 
     lines.forEach(line => {
         if (/\t\tupdateWorld/.test(line)) {
-            let name = line.match(/name: '([^']+?)'/) as RegExpMatchArray;
-            let id = line.match(/id: (\d+)/) as RegExpMatchArray;
+            const name = line.match(/name: '([^']+?)'/) as RegExpMatchArray
+            const id = line.match(/id: (\d+)/) as RegExpMatchArray
 
             worlds.push({
                 name: unescapeHTML(name[1]),
                 id: id[1]
-            });
+            })
         }
-    });
+    })
 
-    return worlds;
+    return worlds
 }
 
 /** @inheritdoc */
 export class Api implements WorldApi {
-    private parser = new PortalLogParser();
+    private parser = new PortalLogParser()
 
     constructor(private info: WorldInfo) {}
 
     /** @inheritdoc */
     getLists = async (): Promise<WorldLists> => {
-        let page = await requestPage(`/worlds/lists/${this.info.id}`);
+        const page = await requestPage(`/worlds/lists/${this.info.id}`)
 
-        let getList = (name: string): string[] => {
-            let names: string[] = [];
-            let list = page.match(new RegExp(`<textarea name="${name}">([\\s\\S]*?)</textarea>`));
+        const getList = (name: string): string[] => {
+            let names: string[] = []
+            const list = page.match(new RegExp(`<textarea name="${name}">([\\s\\S]*?)</textarea>`))
             if (list) {
                 names = unescapeHTML(list[1])
-                    .split(/\r?\n/);
+                    .split(/\r?\n/)
             }
 
             // Remove duplicates / blank lines
-            return Array.from(new Set(names)).filter(Boolean);
-        };
+            return Array.from(new Set(names)).filter(Boolean)
+        }
 
         return {
             adminlist: getList('admins'),
             modlist: getList('modlist'),
             whitelist: getList('whitelist'),
             blacklist: getList('blacklist'),
-        };
+        }
     }
 
     /** @inheritdoc */
     setLists = async (lists: WorldLists): Promise<void> => {
-        let makeSafe = (list: string[]): string => encodeURIComponent(list.join('\n'));
+        const makeSafe = (list: string[]): string => encodeURIComponent(list.join('\n'))
 
-        let body = `admins=${makeSafe(lists.adminlist)}`;
-        body += `&modlist=${makeSafe(lists.modlist)}`;
-        body += `&whitelist=${makeSafe(lists.whitelist)}`;
-        body += `&blacklist=${makeSafe(lists.blacklist)}`;
+        let body = `admins=${makeSafe(lists.adminlist)}`
+        body += `&modlist=${makeSafe(lists.modlist)}`
+        body += `&whitelist=${makeSafe(lists.whitelist)}`
+        body += `&blacklist=${makeSafe(lists.blacklist)}`
 
         await requestJSON(`/worlds/lists/${this.info.id}`, {
             method: 'POST',
             body
-        });
+        })
     }
 
     /** @inheritdoc */
     getOverview = async (): Promise<WorldOverview> => {
-        let page = await requestPage(`/worlds/${this.info.id}`);
-        let firstMatch = (r: RegExp, fallback = ''): string => {
-            let m = page.match(r);
-            return m ? m[1] : fallback;
-        };
+        const page = await requestPage(`/worlds/${this.info.id}`)
+        const firstMatch = (r: RegExp, fallback = ''): string => {
+            const m = page.match(r)
+            return m ? m[1] : fallback
+        }
 
-        let privacy = firstMatch(/^\$\('#privacy'\).val\('(.*?)'\)/m, 'public') as WorldPrivacy;
+        const privacy = firstMatch(/^\$\('#privacy'\).val\('(.*?)'\)/m, 'public') as WorldPrivacy
 
-        let online: string[] = [];
-        let match = page.match(/^\t<tr><td class="left">(.*?)(?=<\/td>)/gm);
+        let online: string[] = []
+        const match = page.match(/^\t<tr><td class="left">(.*?)(?=<\/td>)/gm)
         if (match) {
-            online = online.concat(match.map(s => s.substr(22)));
+            online = online.concat(match.map(s => s.substr(22)))
         }
 
         // This is very messy, refactoring welcome.
@@ -191,14 +191,14 @@ export class Api implements WorldApi {
 
             online,
             status: firstMatch(/^updateWorld\({id: \d+, worldStatus: '(.*?)'/m) as WorldStatus
-        };
+        }
     }
 
     /** @inheritdoc */
     getLogs = (): Promise<LogEntry[]> => {
         return requestPage(`/worlds/logs/${this.info.id}`)
             .then(log => log.split('\n'))
-            .then(lines => this.parser.parse(lines));
+            .then(lines => this.parser.parse(lines))
     }
 
     /** @inheritdoc */
@@ -208,9 +208,9 @@ export class Api implements WorldApi {
             body: `command=getchat&worldId=${this.info.id}&firstId=${lastId}`
         })
         .then(({status, log, nextId}: {status: string, log: string[], nextId: number}) => {
-            if (status != 'ok') return {log: [], nextId: 0}; // Reset, world likely offline.
-            return {nextId, log};
-        }, () => ({log: [], nextId: lastId})); //Network error, don't reset nextId
+            if (status != 'ok') return {log: [], nextId: 0} // Reset, world likely offline.
+            return {nextId, log}
+        }, () => ({log: [], nextId: lastId})) //Network error, don't reset nextId
     }
 
     /** @inheritdoc */
@@ -218,7 +218,7 @@ export class Api implements WorldApi {
         return requestJSON('/api', {
             method: 'POST',
             body: `command=status&worldId=${this.info.id}`
-        }).then(response => response.worldStatus);
+        }).then(response => response.worldStatus)
     }
 
     /** @inheritdoc */
@@ -227,9 +227,9 @@ export class Api implements WorldApi {
             method: 'POST',
             body: `command=send&worldId=${this.info.id}&message=${encodeURIComponent(message)}`
         }).then(result => {
-            if (result.status == 'ok') return;
-            throw new Error(`Unable to send ${message}`);
-        });
+            if (result.status == 'ok') return
+            throw new Error(`Unable to send ${message}`)
+        })
     }
 
     /** @inheritdoc */
@@ -238,7 +238,7 @@ export class Api implements WorldApi {
             method: 'POST',
             body: `command=start&worldId=${this.info.id}`
         })
-        .then(() => undefined, console.error);
+        .then(() => undefined, console.error)
     }
 
     /** @inheritdoc */
@@ -247,7 +247,7 @@ export class Api implements WorldApi {
             method: 'POST',
             body: `command=stop&worldId=${this.info.id}`
         })
-        .then(() => undefined, console.error);
+        .then(() => undefined, console.error)
     }
 
     /** @inheritdoc */
@@ -256,6 +256,6 @@ export class Api implements WorldApi {
             method: 'POST',
             body: `command=reboot&worldId=${this.info.id}`
         })
-        .then(() => undefined, console.error);
+        .then(() => undefined, console.error)
     }
 }
