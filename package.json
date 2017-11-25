@@ -11,28 +11,34 @@
     "simple-plist": "^0.2.1"
   },
   "devDependencies": {
-    "@std/esm": "0.16.0",
-    "ava": "^0.23.0",
+    "@types/tape": "^4.2.31",
     "nyc": "^11.2.1",
+    "rollup": "^0.51.8",
+    "rollup-plugin-typescript2": "^0.8.2",
+    "tap-prettify": "^0.0.2",
+    "tape": "^4.8.0",
+    "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
     "typedoc": "0.9.0",
     "typescript": "^2.6.1"
   },
   "scripts": {
-    "build": "tsc",
-    "test": "tsc && nyc ava",
-    "test:mac": "nyc ava mac.test.noautorun.js",
+    "build": "rollup -c",
+    "test": "tape -r ts-node/register cloud/*.test.ts mac/*.test.ts | tap-prettify -",
+    "coverage": "nyc yarn test",
+    "test:mac": "tape -r ts-node/register index.test.noautorun.ts | tap-prettify -",
+    "coverage:mac": "nyc yarn test:mac",
     "report": "nyc report --reporter=html --reporter=lcov",
-    "docs": "typedoc src && echo Save >> docs/.nojekyll",
-    "prepare": "npm run build"
+    "docs": "typedoc . && echo Save >> docs/.nojekyll",
+    "prepare": "yarn build",
+    "clean": "rm cloud/*.js cloud/*.d.ts mac/*.js mac/*.d.ts"
   },
   "nyc": {
-    "require": [
-      "@std/esm"
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.test.ts"
     ]
-  },
-  "@std/esm": {
-    "esm": "js",
-    "cjs": true
   }
 }

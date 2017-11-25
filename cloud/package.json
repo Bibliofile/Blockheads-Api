@@ -1,0 +1,17 @@
+{
+  "name": "blockheads-cloud-api",
+  "version": "0.0.1",
+  "description": "An API for interacting with Blockheads Cloud servers.",
+  "main": "build.js",
+  "module": "build_es.js",
+  "types": "index.d.ts",
+  "repository": "https://github.com/bibliofile/blockheads-api",
+  "author": "Bibliofile <bibliofilegit@gmail.com>",
+  "license": "GPL-3.0",
+  "files": [
+    "build.js",
+    "build_es.js",
+    "index.d.ts",
+    "api.d.ts"
+  ]
+}

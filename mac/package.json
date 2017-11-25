@@ -1,0 +1,15 @@
+{
+  "name": "blockheads-mac-api",
+  "version": "0.0.1",
+  "description": "An API for interacting with Blockheads Mac servers.",
+  "main": "build.js",
+  "types": "index.d.ts",
+  "repository": "https://github.com/bibliofile/blockheads-api",
+  "author": "Bibliofile <bibliofilegit@gmail.com>",
+  "license": "GPL-3.0",
+  "files": [
+    "build.js",
+    "index.d.ts",
+    "api.d.ts"
+  ]
+}

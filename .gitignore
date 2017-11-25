@@ -48,3 +48,8 @@ jspm_packages
 # Output from building
 *.d.ts
 *.js
+
+cloud/.nyc_output
+mac/.nyc_output
+.rpt2_cache
+!rollup.config.js

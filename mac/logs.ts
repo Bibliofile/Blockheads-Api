@@ -3,7 +3,7 @@
  * @private
  */
 
-import { LogEntry } from '../api'
+import { LogEntry } from './api'
 
 /**
  * This class should not be used by consumers of the library. It is used internally.

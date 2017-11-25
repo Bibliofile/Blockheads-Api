@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "./",
+        "declarationDir": "./",
         "target": "es6",
         "lib": [
             "es7",
@@ -17,11 +17,12 @@
         "inlineSources": true,
         "inlineSourceMap": true
     },
-    "exclude": [
-        "node_modules"
-    ],
     "include": [
-        "src/**/*"
+        "**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.d.ts"
     ],
     "typedocOptions": {
         "mode": "modules",

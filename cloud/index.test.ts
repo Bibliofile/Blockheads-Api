@@ -1,6 +1,6 @@
-import * as ava from 'ava'
-import { WorldOverview } from './api'
-import { setFetch, login, getWorlds, Api } from './cloud'
+import * as tape from 'tape'
+
+import { setFetch, login, getWorlds, Api } from './index'
 import { readFile } from 'fs'
 
 const tick = () => new Promise(r => setImmediate(r))
@@ -75,22 +75,42 @@ function makeMockFetch() {
     return {requests, mockFetch}
 }
 
+// Modified from https://github.com/substack/tape/issues/59
+function beforeEach(test: typeof tape, handler: tape.TestCase) {
+    return function (name: string, listener: (t: tape.Test) => void | Promise<void>) {
+        test(`Cloud - index - ${name}`, t => {
+            const end = t.end
+            t.end = function () {
+                t.end = end
+                const result = listener(t)
+                if (result instanceof Promise) {
+                    result
+                        .then(() => t.end())
+                        .catch(err => t.end(err))
+                } else {
+                    t.end()
+                }
+            }
 
-const baseTest = ava.test as ava.RegisterContextual<{requests: requestArray}>
-baseTest.beforeEach(t => {
+            handler(t)
+        })
+    }
+}
+
+const context: { requests: requestArray } = { requests: [] }
+
+const test = beforeEach(tape, t => {
     const { requests, mockFetch } = makeMockFetch()
     setFetch(mockFetch)
-    t.context.requests = requests
+    context.requests = requests
+    t.end()
 })
-
-// Because we are mocking fetch, it is very difficult to test anything without using serial tests.
-const test = baseTest.serial
 
 
 test(`login should throw if the seed request does not return correctly`, async t => {
     const prom = login('user', 'pass')
-    t.is(t.context.requests[0].init.method, 'POST')
-    respondToLastRequest(t.context.requests, {status: 'error'})
+    t.is(context.requests[0].init.method, 'POST')
+    respondToLastRequest(context.requests, {status: 'error'})
 
     try {
         await prom
@@ -102,23 +122,24 @@ test(`login should throw if the seed request does not return correctly`, async t
 
 test(`login should hash the password with the response seeds`, async t => {
     login('user', 'pass')
-    respondToLastRequest(t.context.requests, {status: 'ok', salt: 'salt1', salt2: 'salt2', seed: 'seed'})
+    respondToLastRequest(context.requests, {status: 'ok', salt: 'salt1', salt2: 'salt2', seed: 'seed'})
     await tick()
 
-    t.is(t.context.requests[1].init.body, `seed=seed&password=4e0baf7163c6b14bcc218b48cec1f17268f24d0b&username=USER`)
-    t.is(t.context.requests[0].init.method, 'POST')
+    t.is(context.requests[1].init.body, `seed=seed&password=4e0baf7163c6b14bcc218b48cec1f17268f24d0b&username=USER`)
+    t.is(context.requests[0].init.method, 'POST')
 })
 
 test(`login should throw if the password is invalid`, async t => {
     const prom = login('user', 'pass')
-    respondToLastRequest(t.context.requests, { status: 'ok', salt: 'salt1', salt2: 'salt2', seed: 'seed' })
+    prom.catch(() => { }) // See https://stackoverflow.com/a/40921505
+    respondToLastRequest(context.requests, { status: 'ok', salt: 'salt1', salt2: 'salt2', seed: 'seed' })
     await tick()
 
-    const html = await getFile('./test_data/invalid_password.html')
-    respondToLastRequest(t.context.requests, html)
-    await tick()
+    const html = await getFile(__dirname + '/test_data/invalid_password.html')
+    respondToLastRequest(context.requests, html)
 
     try {
+        await tick()
         await prom
         t.fail()
     } catch (err) {
@@ -128,11 +149,11 @@ test(`login should throw if the password is invalid`, async t => {
 
 test(`login should resolve if the password is valid`, async t => {
     const prom = login('user', 'pass')
-    respondToLastRequest(t.context.requests, { status: 'ok', salt: 'salt1', salt2: 'salt2', seed: 'seed' })
+    respondToLastRequest(context.requests, { status: 'ok', salt: 'salt1', salt2: 'salt2', seed: 'seed' })
     await tick()
 
-    const html = await getFile('./test_data/worlds.html')
-    respondToLastRequest(t.context.requests, html)
+    const html = await getFile(__dirname + '/test_data/worlds.html')
+    respondToLastRequest(context.requests, html)
 
     await prom
     t.pass()
@@ -140,7 +161,7 @@ test(`login should resolve if the password is valid`, async t => {
 
 test(`getWorlds should return an array of world names and ids`, async t => {
     const prom = getWorlds()
-    respondToLastRequest(t.context.requests, await getFile('./test_data/worlds.html'))
+    respondToLastRequest(context.requests, await getFile(__dirname + '/test_data/worlds.html'))
     const worlds = await prom
     t.deepEqual(worlds, [
         { name: 'AIRSTEDDING', id: '123' },
@@ -153,8 +174,8 @@ test(`getLists should return the world lists`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123'})
 
     const prom = api.getLists()
-    t.is(t.context.requests[0].url, `/worlds/lists/123`)
-    respondToLastRequest(t.context.requests, await getFile('./test_data/lists.html'))
+    t.is(context.requests[0].url, `/worlds/lists/123`)
+    respondToLastRequest(context.requests, await getFile(__dirname + '/test_data/lists.html'))
     const lists = await prom
 
     t.deepEqual(lists, {
@@ -169,7 +190,7 @@ test(`getLists should return empty lists if not logged in`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123'})
 
     const prom = api.getLists()
-    respondToLastRequest(t.context.requests, await getFile('./test_data/invalid_password.html'))
+    respondToLastRequest(context.requests, await getFile(__dirname + '/test_data/invalid_password.html'))
     const lists = await prom
 
     t.deepEqual(lists, {
@@ -184,20 +205,20 @@ test(`setLists should encode names`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
 
     api.setLists({ adminlist: ['%#&!&\'='], modlist: [], whitelist: [], blacklist: []})
-    t.is(t.context.requests[0].init.body, `admins=%25%23%26!%26\'%3D&modlist=&whitelist=&blacklist=`)
-    t.is(t.context.requests[0].url, `/worlds/lists/123`)
+    t.is(context.requests[0].init.body, `admins=%25%23%26!%26\'%3D&modlist=&whitelist=&blacklist=`)
+    t.is(context.requests[0].url, `/worlds/lists/123`)
 })
 
 test(`getOverview should correctly return the world overview`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
 
     const prom = api.getOverview()
-    t.is(t.context.requests[0].url, '/worlds/123')
+    t.is(context.requests[0].url, '/worlds/123')
 
-    respondToLastRequest(t.context.requests, await getFile('./test_data/overview.html'))
+    respondToLastRequest(context.requests, await getFile(__dirname + '/test_data/overview.html'))
     const overview = await prom
 
-    t.deepEqual<WorldOverview>(overview, {
+    t.deepEqual(overview, {
         name: 'AIRSTEDDING',
         owner: 'BIBLIOPHILE',
         created: new Date('14 Jun 2015, 10:07 +0000'),
@@ -219,10 +240,10 @@ test(`getOverview should correctly return the world overview with online players
 
     const prom = api.getOverview()
 
-    respondToLastRequest(t.context.requests, await getFile('./test_data/overview2.html'))
+    respondToLastRequest(context.requests, await getFile(__dirname + '/test_data/overview2.html'))
     const overview = await prom
 
-    t.deepEqual<WorldOverview>(overview, {
+    t.deepEqual(overview, {
         name: 'AIRSTEDDING',
         owner: 'BIBLIOPHILE',
         created: new Date('14 Jun 2015, 10:07 +0000'),
@@ -244,9 +265,9 @@ test(`getLogs should return the parsed logs`, async t => {
 
     const prom = api.getLogs()
 
-    t.is(t.context.requests[0].url, '/worlds/logs/123')
+    t.is(context.requests[0].url, '/worlds/logs/123')
     // We aren't testing the log parser here
-    respondToLastRequest(t.context.requests, '')
+    respondToLastRequest(context.requests, '')
     const logs = await prom
     t.deepEqual(logs, [])
 })
@@ -255,10 +276,10 @@ test(`getMessages should return the nextId and the log`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
     const prom = api.getMessages()
 
-    t.is(t.context.requests[0].url, `/api`)
-    t.is(t.context.requests[0].init.body, `command=getchat&worldId=123&firstId=0`)
+    t.is(context.requests[0].url, `/api`)
+    t.is(context.requests[0].init.body, `command=getchat&worldId=123&firstId=0`)
     const response = { status: 'ok', log: ['a'], nextId: 1 }
-    respondToLastRequest(t.context.requests, response)
+    respondToLastRequest(context.requests, response)
 
     const result = await prom
     t.deepEqual(result, {nextId: response.nextId, log: response.log})
@@ -267,7 +288,7 @@ test(`getMessages should return the nextId and the log`, async t => {
 test(`getMessages should reset the nextId if the api returns an error`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
     const prom = api.getMessages(123)
-    respondToLastRequest(t.context.requests, { status: 'error' })
+    respondToLastRequest(context.requests, { status: 'error' })
     const result = await prom
     t.deepEqual(result, { nextId: 0, log: [] })
 })
@@ -276,7 +297,7 @@ test(`getMessages should not reset the nextId if there is a network error`, asyn
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
     const prom = api.getMessages(123)
 
-    t.context.requests[0].reject(new Error('Fake Network error'))
+    context.requests[0].reject(new Error('Fake Network error'))
 
     const result = await prom
     t.deepEqual(result, { nextId: 123, log: [] })
@@ -285,16 +306,16 @@ test(`getMessages should not reset the nextId if there is a network error`, asyn
 test(`send should encode the message`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
     const prom = api.send('Hello &')
-    t.is(t.context.requests[0].url, '/api')
-    t.is(t.context.requests[0].init.body, `command=send&worldId=123&message=Hello%20%26`)
-    respondToLastRequest(t.context.requests, { status: 'ok' })
+    t.is(context.requests[0].url, '/api')
+    t.is(context.requests[0].init.body, `command=send&worldId=123&message=Hello%20%26`)
+    respondToLastRequest(context.requests, { status: 'ok' })
     await prom
 })
 
 test(`send should throw if unable to send`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
     const prom = api.send('Hello')
-    respondToLastRequest(t.context.requests, { status: 'error' })
+    respondToLastRequest(context.requests, { status: 'error' })
     try {
         await prom
         t.fail()
@@ -306,31 +327,31 @@ test(`send should throw if unable to send`, async t => {
 test(`start should start the world`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
     const prom = api.start()
-    t.is(t.context.requests[0].init.body, `command=start&worldId=123`)
-    respondToLastRequest(t.context.requests, {status: 'ok'})
+    t.is(context.requests[0].init.body, `command=start&worldId=123`)
+    respondToLastRequest(context.requests, {status: 'ok'})
     await prom
 })
 
 test(`stop should stop the world`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
     const prom = api.stop()
-    t.is(t.context.requests[0].init.body, `command=stop&worldId=123`)
-    respondToLastRequest(t.context.requests, {status: 'ok'})
+    t.is(context.requests[0].init.body, `command=stop&worldId=123`)
+    respondToLastRequest(context.requests, {status: 'ok'})
     await prom
 })
 
 test(`restart should restart the world`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
     const prom = api.restart()
-    t.is(t.context.requests[0].init.body, `command=reboot&worldId=123`)
-    respondToLastRequest(t.context.requests, {status: 'ok'})
+    t.is(context.requests[0].init.body, `command=reboot&worldId=123`)
+    respondToLastRequest(context.requests, {status: 'ok'})
     await prom
 })
 
 test(`getStatus should get the world status`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
     const prom = api.getStatus()
-    t.is(t.context.requests[0].init.body, `command=status&worldId=123`)
-    respondToLastRequest(t.context.requests, { status: 'ok', worldStatus: 'online'})
+    t.is(context.requests[0].init.body, `command=status&worldId=123`)
+    respondToLastRequest(context.requests, { status: 'ok', worldStatus: 'online'})
     t.is(await prom, 'online')
 })

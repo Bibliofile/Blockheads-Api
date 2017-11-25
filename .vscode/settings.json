@@ -1,13 +1,12 @@
 // Place your settings in this file to overwrite default and user settings.
 {
     "files.exclude": {
-        "*.d.ts": true,
-        "*.js": true,
+        "**/*.d.ts": true,
         "logs": true,
         "coverage": true,
         "docs": true,
         ".nyc_output": true,
         "node_modules": true,
-        ".esm-cache": true
+        ".gitattributes": true,
     }
 }
