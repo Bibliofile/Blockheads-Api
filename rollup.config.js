@@ -1,10 +1,4 @@
 import typescript from 'rollup-plugin-typescript2'
-import assert from 'assert'
-import fs from 'fs'
-
-const cloudApi = fs.readFileSync(__dirname + '/cloud/api.ts', 'utf-8').trim()
-const macApi = fs.readFileSync(__dirname + '/mac/api.ts', 'utf-8').trim()
-assert.equal(cloudApi, macApi, 'Cloud and Mac API declarations must be equal.')
 
 const compilerOptions = {
   target: "es6",
@@ -69,8 +63,17 @@ const macCommon = createCommonConfig({
   ]
 })
 
+const interfaceConfig = createConfig({})({
+  input: 'api/index.ts',
+  output: {
+    file: 'api/build.js',
+    format: 'cjs'
+  }
+})
+
 export default [
   cloudCommon,
   cloudES,
-  macCommon
+  macCommon,
+  interfaceConfig
 ]

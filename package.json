@@ -30,8 +30,8 @@
     "coverage:mac": "nyc yarn test:mac",
     "report": "nyc report --reporter=html --reporter=lcov",
     "docs": "typedoc . && echo Save >> docs/.nojekyll",
-    "prepare": "yarn build",
-    "clean": "rm cloud/*.js cloud/*.d.ts mac/*.js mac/*.d.ts"
+    "clean": "rm cloud/*.js cloud/*.d.ts mac/*.js mac/*.d.ts",
+    "check_publish": "bash scripts/check_publish.sh"
   },
   "nyc": {
     "extension": [

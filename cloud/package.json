@@ -1,6 +1,6 @@
 {
   "name": "blockheads-cloud-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An API for interacting with Blockheads Cloud servers.",
   "main": "build.js",
   "module": "build_es.js",
@@ -13,5 +13,8 @@
     "build_es.js",
     "index.d.ts",
     "api.d.ts"
-  ]
+  ],
+  "dependencies": {
+    "blockheads-api-interface": "^0.0.1"
+  }
 }

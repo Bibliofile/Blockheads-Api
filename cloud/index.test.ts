@@ -355,3 +355,13 @@ test(`getStatus should get the world status`, async t => {
     respondToLastRequest(context.requests, { status: 'ok', worldStatus: 'online'})
     t.is(await prom, 'online')
 })
+
+test(`name should return the world name`, t => {
+    const api = new Api({ name: 'AIRSTEDDING', id: '123' })
+    t.is(api.name, 'AIRSTEDDING')
+})
+
+test(`id should return the world id`, t => {
+    const api = new Api({ name: 'AIRSTEDDING', id: '123' })
+    t.is(api.id, '123')
+})

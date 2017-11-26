@@ -7,8 +7,7 @@ import {
   WorldPrivacy,
   WorldSizes,
   WorldStatus
-} from './api'
-export * from './api'
+} from 'blockheads-api-interface'
 
 import { LogParser } from './logs'
 
@@ -124,6 +123,16 @@ export class Api implements WorldApi {
   private parser = new LogParser()
 
   constructor(private info: WorldInfo) {}
+
+  /** @inheritdoc */
+  get name() {
+    return this.info.name
+  }
+
+  /** @inheritdoc */
+  get id() {
+    return this.info.id
+  }
 
   /** @inheritdoc */
   getLists = async (): Promise<WorldLists> => {

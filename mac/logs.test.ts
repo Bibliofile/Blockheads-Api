@@ -14,7 +14,7 @@ const test = (name: string, test: (t: tape.Test) => void | Promise<void>) => {
 }
 
 import { LogParser } from './logs'
-import { LogEntry } from './api'
+import { LogEntry } from 'blockheads-api-interface'
 
 const logs = `Oct  5 19:48:57 biblios-Mac loginwindow[92]: -[SFLListManager(ServiceReplyProtocol) notifyChanges:toListWithIdentifier:] Notified of item changes to list with identifier com.apple.LSSharedFileList.RecentApplications
 Oct  5 19:49:03 biblios-Mac BlockheadsServer[20241]: loading world with size:32

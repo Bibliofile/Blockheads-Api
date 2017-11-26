@@ -3,7 +3,7 @@
  * @private
  */
 
-import { LogEntry } from './api'
+import { LogEntry } from 'blockheads-api-interface'
 
 /**
  * Parses logs from the portal into a standard format. If you are consuming this library, you don't need to know anything about it.

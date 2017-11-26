@@ -1,11 +1,9 @@
 import { readFile, writeFile, readdir } from 'fs'
 import * as zlib from 'zlib'
 import { LogParser } from './logs'
-import { WorldInfo, WorldApi, WorldLists, WorldSizes, WorldOverview, LogEntry, WorldStatus } from './api'
+import { WorldInfo, WorldApi, WorldLists, WorldSizes, WorldOverview, LogEntry, WorldStatus } from 'blockheads-api-interface'
 import { promisify } from 'util'
 import { spawn, exec, ChildProcess } from 'child_process'
-
-export * from './api'
 
 function readFileBuffer(path: string): Promise<Buffer> {
     return new Promise((resolve, reject) => {
@@ -124,6 +122,16 @@ export const getWorlds = async (): Promise<WorldInfo[]> => {
 /** @inheritdoc */
 export class Api implements WorldApi {
     constructor(private info: WorldInfo) { }
+
+    /** @inheritdoc */
+    get name() {
+        return this.info.name
+    }
+
+    /** @inheritdoc */
+    get id() {
+        return this.info.id
+    }
 
     /** @inheritdoc */
     getLists = async (): Promise<WorldLists> => {

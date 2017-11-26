@@ -1,6 +1,6 @@
 {
   "name": "blockheads-mac-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An API for interacting with Blockheads Mac servers.",
   "main": "build.js",
   "types": "index.d.ts",
@@ -11,5 +11,8 @@
     "build.js",
     "index.d.ts",
     "api.d.ts"
-  ]
+  ],
+  "dependencies": {
+    "blockheads-api-interface": "^0.0.1"
+  }
 }

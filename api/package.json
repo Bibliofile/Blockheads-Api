@@ -1,0 +1,13 @@
+{
+  "name": "blockheads-api-interface",
+  "version": "0.0.1",
+  "description": "The interface used by the blockheads-*-api packages.",
+  "main": "build.js",
+  "types": "index.d.ts",
+  "repository": "https://github.com/bibliofile/blockheads-api",
+  "author": "Bibliofile <bibliofilegit@gmail.com>",
+  "license": "GPL-3.0",
+  "files": [
+    "index.d.ts"
+  ]
+}

@@ -134,6 +134,14 @@ export interface WorldOverview {
  */
 export interface WorldApi {
     /**
+     * The world name
+     */
+    readonly name: string
+    /**
+     * The world ID
+     */
+    readonly id: string
+    /**
      * Gets the current server lists.
      */
     getLists(): Promise<WorldLists>
@@ -159,6 +167,9 @@ export interface WorldApi {
      */
     getMessages(lastId: number): Promise<{nextId: number, log: string[]}>
 
+    /**
+     * Gets the status of the world.
+     */
     getStatus(): Promise<WorldStatus>
 
     /**
@@ -176,7 +187,4 @@ export interface WorldApi {
      * Resolves when the request has been sent, though the world may not yet be online. Will not throw.
      */
     restart(): Promise<void>
-}
-declare var WorldApi: {
-    new(info: WorldInfo): WorldApi
 }
