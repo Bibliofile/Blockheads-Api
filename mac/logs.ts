@@ -65,7 +65,7 @@ export class LogParser {
         const msg = message.message
         if (msg.startsWith(this.name)) {
             if (!keepName.some(s => msg.startsWith(`${this.name}${s}`))) {
-                message.message = msg.replace(this.name, '')
+                message.message = msg.replace(`${this.name} - `, '')
             }
 
             result.push(message)

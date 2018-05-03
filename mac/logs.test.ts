@@ -63,7 +63,7 @@ test(`Should strip the world name from log entries`, t => {
   const parsed = parse()
   // Server chat message
   const { message } = parsed.find(({ message }) => message.includes('UNIQUE_STRING')) as LogEntry
-  t.false(message.startsWith('DEMO'))
+  t.true(message.startsWith('SERVER: '))
 })
 
 test(`Should not strip the world name from leave messages`, t => {
