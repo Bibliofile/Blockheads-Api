@@ -58,7 +58,7 @@ function makeRequest (url: string, options: RequestInit = {}): Promise<Response>
   })
 }
 
-function requestJSON(url: string, options?: RequestInit): Promise<{[key: string]: any}> {
+function requestJSON(url: string, options?: RequestInit): Promise<any> {
   return makeRequest(url, options).then(r => r.json())
 }
 

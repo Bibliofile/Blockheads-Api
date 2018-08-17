@@ -10,12 +10,9 @@
         "moduleResolution": "node",
         "declaration": true,
         "removeComments": false,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
+        "strict": true,
         "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "inlineSources": true,
-        "inlineSourceMap": true
+        "noUnusedParameters": true
     },
     "include": [
         "**/*.ts"
@@ -25,7 +22,7 @@
         "**/*.d.ts"
     ],
     "typedocOptions": {
-        "mode": "modules",
+        "mode": "file",
         "out": "docs",
         "name": "Blockheads-Api",
         "excludePrivate": true,

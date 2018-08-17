@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;src/cloud&quot; | Blockheads-Api</title>
+	<title>LogParser | Blockheads-Api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,118 +54,108 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_src_cloud_.html">&quot;src/cloud&quot;</a>
+					<a href="logparser.html">LogParser</a>
 				</li>
 			</ul>
-			<h1>External module &quot;src/cloud&quot;</h1>
+			<h1>Class LogParser</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Parses logs from the portal into a standard format. If you are consuming this library, you don&#39;t need to know anything about it.
+						This class should not be used by consumers of the library. It is used internally.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">LogParser</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Classes</h3>
+							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_src_cloud_.api.html" class="tsd-kind-icon">Api</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="logparser.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Functions</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_src_cloud_.html#getworlds" class="tsd-kind-icon">get<wbr>Worlds</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_src_cloud_.html#login" class="tsd-kind-icon">login</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_src_cloud_.html#setfetch" class="tsd-kind-icon">set<wbr>Fetch</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logparser.html#parse" class="tsd-kind-icon">parse</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="getworlds" class="tsd-anchor"></a>
-					<h3>get<wbr>Worlds</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Worlds<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_src_api_.worldinfo.html" class="tsd-signature-type">WorldInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Log<wbr>Parser<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="logparser.html" class="tsd-signature-type">LogParser</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/03e7d31/src/cloud.ts#L94">src/cloud.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/7418046/cloud/logs.ts#L13">cloud/logs.ts:13</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets all worlds owned by the logged in user.</p>
+									<p>Creates a new instance of the LogParser class.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_src_api_.worldinfo.html" class="tsd-signature-type">WorldInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="logparser.html" class="tsd-signature-type">LogParser</a></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="login" class="tsd-anchor"></a>
-					<h3>login</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">login<span class="tsd-signature-symbol">(</span>username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="parse" class="tsd-anchor"></a>
+					<h3>parse</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">parse<span class="tsd-signature-symbol">(</span>lines<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">LogEntry</span><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/03e7d31/src/cloud.ts#L69">src/cloud.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/7418046/cloud/logs.ts#L27">cloud/logs.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Function to try to log in, if the log in fails, the returned promise will reject, otherwise it will resolve.</p>
+									<p>Parses the logs into a standard format.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>username: <span class="tsd-signature-type">string</span></h5>
+									<h5>lines: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>the username to try to log in with</p>
-									</div>
-								</li>
-								<li>
-									<h5>password: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the password to try to log in with</p>
+										<div class="lead">
+											<p>the raw log lines.</p>
+										</div>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="setfetch" class="tsd-anchor"></a>
-					<h3>set<wbr>Fetch</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Fetch<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">fetch</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/03e7d31/src/cloud.ts#L23">src/cloud.ts:23</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>fn: <span class="tsd-signature-type">fetch</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">LogEntry</span><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -177,45 +167,66 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="label tsd-is-external">
-						<span>Internals</span>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_src_api_.html">"src/api"</a>
-					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="_src_cloud_.html">"src/cloud"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_src_mac_.html">"src/mac"</a>
-					</li>
-					<li class="label tsd-is-external">
-						<span>Externals</span>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_node_modules_typed_promisify_index_.html">"node_<wbr>modules/typed-<wbr>promisify/index"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_src_logs_mac_.html">"src/logs/mac"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_src_logs_portal_.html">"src/logs/portal"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_src_cloud_.api.html" class="tsd-kind-icon">Api</a>
+					<li class=" tsd-kind-class">
+						<a href="api.html" class="tsd-kind-icon">Api</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_src_cloud_.html#getworlds" class="tsd-kind-icon">get<wbr>Worlds</a>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-is-private">
+						<a href="logparser.html" class="tsd-kind-icon">Log<wbr>Parser</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="logparser.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="logparser.html#parse" class="tsd-kind-icon">parse</a>
+							</li>
+						</ul>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_src_cloud_.html#login" class="tsd-kind-icon">login</a>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/logentry.html" class="tsd-kind-icon">Log<wbr>Entry</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_src_cloud_.html#setfetch" class="tsd-kind-icon">set<wbr>Fetch</a>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/worldapi.html" class="tsd-kind-icon">World<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/worldinfo.html" class="tsd-kind-icon">World<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/worldlists.html" class="tsd-kind-icon">World<wbr>Lists</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/worldoverview.html" class="tsd-kind-icon">World<wbr>Overview</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#worldprivacy" class="tsd-kind-icon">World<wbr>Privacy</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#worldsizes" class="tsd-kind-icon">World<wbr>Sizes</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#worldstatus" class="tsd-kind-icon">World<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#getworlds" class="tsd-kind-icon">get<wbr>Worlds</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#login" class="tsd-kind-icon">login</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#setfetch" class="tsd-kind-icon">set<wbr>Fetch</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#unwatchchat" class="tsd-kind-icon">unwatch<wbr>Chat</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#watchchat" class="tsd-kind-icon">watch<wbr>Chat</a>
 					</li>
 				</ul>
 			</nav>

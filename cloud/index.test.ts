@@ -15,6 +15,7 @@ type requestArray = {
 }[]
 
 class MockResponse implements Response {
+    trailer: Promise<Headers>
     headers: Headers
     ok: boolean
     status: number
@@ -27,6 +28,8 @@ class MockResponse implements Response {
         this.status = init.status || 200
         this.statusText = init.statusText || 'OK'
         this.ok = this.status >= 200 && this.status < 300
+        this.headers = {} as any
+        this.trailer = Promise.resolve(this.headers)
     }
 
     clone(): Response {
@@ -61,7 +64,7 @@ function respondToLastRequest(requests: requestArray, body: any) {
 // /api, /login, /worlds/lists/:id, /login, /worlds/:id
 function makeMockFetch() {
     const requests: requestArray = []
-    function mockFetch(input: RequestInfo, init: RequestInit = {}): Promise<Response> {
+    function mockFetch(input?: RequestInfo | string, init: RequestInit | undefined = {}): Promise<Response> {
         if (typeof input != 'string') throw new Error('input must be a string')
 
         return new Promise((resolve, reject) => {

@@ -1,20 +1,6 @@
 import typescript from 'rollup-plugin-typescript2'
 
-const compilerOptions = {
-  target: "es6",
-  lib: [
-    "es7",
-    "dom",
-    "scripthost"
-  ],
-  moduleResolution: "node",
-  declaration: true,
-  removeComments: false,
-  noImplicitAny: true,
-  strictNullChecks: true,
-  noUnusedLocals: true,
-  noUnusedParameters: true
-}
+const { compilerOptions } = require('./tsconfig.json')
 
 const createConfig = tsOptions => options => {
   const override = Object.assign({}, compilerOptions, tsOptions)

@@ -158,17 +158,13 @@ export class Api implements WorldApi {
 
     /** @inheritdoc */
     setLists = async (lists: WorldLists): Promise<void> => {
-        const names = Object.keys(lists).reduce((carry, key: keyof WorldLists) => {
-            lists[key].unshift('First line is ignored.')
-            carry[key] = lists[key].join('\n')
-            return carry
-        }, {} as { [k: string]: string })
+        const getList = (names: string[]) => ['First line is ignored.', ...names].join('\n')
 
         await Promise.all([
-            writeFileAsync(root + this.info.id + '/adminlist.txt', names.adminlist),
-            writeFileAsync(root + this.info.id + '/modlist.txt', names.modlist),
-            writeFileAsync(root + this.info.id + '/whitelist.txt', names.whitelist),
-            writeFileAsync(root + this.info.id + '/blacklist.txt', names.blacklist),
+            writeFileAsync(root + this.info.id + '/adminlist.txt', getList(lists.adminlist)),
+            writeFileAsync(root + this.info.id + '/modlist.txt', getList(lists.modlist)),
+            writeFileAsync(root + this.info.id + '/whitelist.txt', getList(lists.whitelist)),
+            writeFileAsync(root + this.info.id + '/blacklist.txt', getList(lists.blacklist)),
         ])
 
         this.send('/load-lists')

@@ -72,7 +72,7 @@
 					<li>Install with <code>npm install --save blockheads-api</code> or, if you prefer yarn, <code>yarn add blockheads-api</code></li>
 					<li>Include the applicable module.</li>
 				</ol>
-				<pre><code class="lang-typescript"><span class="hljs-comment">// For cloud worlds</span>
+				<pre><code class="language-typescript"><span class="hljs-comment">// For cloud worlds</span>
 <span class="hljs-comment">// The login method is not necessary if the code will be used on the portal website with a user already logged in.</span>
 <span class="hljs-keyword">import</span> { login, getWorlds, Api } <span class="hljs-keyword">from</span> <span class="hljs-string">'blockheads-api/cloud'</span>;
 <span class="hljs-comment">// Cloud worlds require a `fetch` implementation. If the code is not used in a browser, you must set the function to use.</span>
@@ -86,24 +86,21 @@ setFetch(<span class="hljs-built_in">require</span>(<span class="hljs-string">'f
 <span class="hljs-comment">// Will prevent your script from exiting once processing is done.</span>
 watchChat();
 <span class="hljs-comment">// Stops the syslog listener for chat</span>
-unwatchChat();
-</code></pre>
+unwatchChat();</code></pre>
 				<h2 id="examples">Examples</h2>
 				<p>List all worlds</p>
-				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { getWorlds } <span class="hljs-keyword">from</span> <span class="hljs-string">'blockheads-api/cloud'</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { getWorlds } <span class="hljs-keyword">from</span> <span class="hljs-string">'blockheads-api/cloud'</span>;
 getWorlds().then(<span class="hljs-function"><span class="hljs-params">worlds</span> =&gt;</span> {
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> {name, id} of worlds) {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${name}</span> (<span class="hljs-subst">${id}</span>)`</span>);
     }
-});
-</code></pre>
+});</code></pre>
 				<p>Send a message to the first world found</p>
-				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { getWorlds, Api } <span class="hljs-keyword">from</span> <span class="hljs-string">'blockheads-api/cloud'</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { getWorlds, Api } <span class="hljs-keyword">from</span> <span class="hljs-string">'blockheads-api/cloud'</span>;
 getWorlds().then(<span class="hljs-function"><span class="hljs-params">worlds</span> =&gt;</span> {
     <span class="hljs-keyword">let</span> api = <span class="hljs-keyword">new</span> Api(worlds[<span class="hljs-number">0</span>]);
     api.send(<span class="hljs-string">'Hello world!'</span>);
-});
-</code></pre>
+});</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -112,34 +109,55 @@ getWorlds().then(<span class="hljs-function"><span class="hljs-params">worlds</s
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
-					<li class="label tsd-is-external">
-						<span>Internals</span>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_src_api_.html">"src/api"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_src_cloud_.html">"src/cloud"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_src_mac_.html">"src/mac"</a>
-					</li>
-					<li class="label tsd-is-external">
-						<span>Externals</span>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="modules/_node_modules_typed_promisify_index_.html">"node_<wbr>modules/typed-<wbr>promisify/index"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="modules/_src_logs_mac_.html">"src/logs/mac"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="modules/_src_logs_portal_.html">"src/logs/portal"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/api.html" class="tsd-kind-icon">Api</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-private">
+						<a href="classes/logparser.html" class="tsd-kind-icon">Log<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/logentry.html" class="tsd-kind-icon">Log<wbr>Entry</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/worldapi.html" class="tsd-kind-icon">World<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/worldinfo.html" class="tsd-kind-icon">World<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/worldlists.html" class="tsd-kind-icon">World<wbr>Lists</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/worldoverview.html" class="tsd-kind-icon">World<wbr>Overview</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#worldprivacy" class="tsd-kind-icon">World<wbr>Privacy</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#worldsizes" class="tsd-kind-icon">World<wbr>Sizes</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#worldstatus" class="tsd-kind-icon">World<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getworlds" class="tsd-kind-icon">get<wbr>Worlds</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#login" class="tsd-kind-icon">login</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#setfetch" class="tsd-kind-icon">set<wbr>Fetch</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#unwatchchat" class="tsd-kind-icon">unwatch<wbr>Chat</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#watchchat" class="tsd-kind-icon">watch<wbr>Chat</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
