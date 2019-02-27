@@ -28,12 +28,8 @@ function run([world]) {
 
     // Open the correct world
     var rows = win.scrollAreas.at(0).tables.at(0).rows;
-    for (var i = 0; i < rows.length; i++) {
-        if (rows.at(i).staticTexts.at(0).value() == world) {
-            rows.at(i).selected = true;
-            break;
-        }
-    }
+    var row = rows.whose({ _match: [ ObjectSpecifier().staticTexts[0].value, world ] }).at(0);
+    row.selected = true
 
     // Click the stop button, if the world is stopped.
     if (win.buttons.at(2).title() == 'Start') {
