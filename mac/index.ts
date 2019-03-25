@@ -76,7 +76,7 @@ export function watchChat() {
     unwatchChat()
 
     tail = exec('tail -fF -n 0 /private/var/log/system.log')
-    tail.stdout.on('data', data => {
+    tail.stdout!.on('data', data => {
         if (Buffer.isBuffer(data)) data = data.toString('utf8')
 
         const lines = data.split('\n')
@@ -167,7 +167,7 @@ export class Api implements WorldApi {
             writeFileAsync(root + this.info.id + '/blacklist.txt', getList(lists.blacklist)),
         ])
 
-        this.send('/load-lists')
+        return this.send('/load-lists')
     }
 
     /** @inheritdoc */
