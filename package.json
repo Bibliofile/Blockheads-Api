@@ -8,24 +8,25 @@
   "author": "Bibliofile <bibliofilegit@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
-    "simple-plist": "^0.3.0",
-    "blockheads-api-interface": "^0.0.1"
+    "blockheads-api-interface": "^0.0.1",
+    "simple-plist": "^1.0.0"
   },
   "devDependencies": {
-    "@types/tape": "^4.2.32",
-    "nyc": "^12.0.2",
-    "rollup": "^0.64.1",
-    "rollup-plugin-typescript2": "^0.16.1",
+    "@types/tape": "^4.2.33",
+    "nyc": "^13.3.0",
+    "rollup": "^1.7.3",
+    "rollup-plugin-typescript2": "^0.20.1",
     "tap-prettify": "^0.0.2",
-    "tape": "^4.9.1",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "typedoc": "0.12.0",
-    "typescript": "^3.0.1"
+    "tape": "^4.10.1",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.14.0",
+    "typedoc": "0.14.2",
+    "typescript": "^3.3.4000"
   },
   "scripts": {
     "build": "rollup -c",
     "test": "tape -r ts-node/register cloud/*.test.ts mac/*.test.ts | tap-prettify -",
+    "lint": "tslint --project .",
     "coverage": "nyc yarn test",
     "test:mac": "tape -r ts-node/register index.test.noautorun.ts | tap-prettify -",
     "coverage:mac": "nyc yarn test:mac",

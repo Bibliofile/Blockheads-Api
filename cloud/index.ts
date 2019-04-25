@@ -52,8 +52,7 @@ function makeRequest (url: string, options: RequestInit = {}): Promise<Response>
     mode: 'same-origin',
     credentials: 'same-origin',
     redirect: 'follow',
-    // Typescript incorrectly throws an error due to types here
-    headers: headers as any,
+    headers,
     ...options
   })
 }

@@ -31,7 +31,7 @@ const worldInfo: WorldInfo = {
 test('Should send messages', async t => {
   const api = new Api(worldInfo)
 
-  api.send('Send me!')
+  await api.send('Send me!')
   t.pass()
 })
 

@@ -5,6 +5,7 @@
         "semicolon": [true, "never"],
         "prefer-const": true,
         "cyclomatic-complexity": [true, 15],
-        "no-invalid-this": [true, "check-function-in-method"]
+        "no-invalid-this": [true, "check-function-in-method"],
+        "no-floating-promises": true
     }
 }

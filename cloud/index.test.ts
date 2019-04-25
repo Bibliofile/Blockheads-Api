@@ -124,7 +124,8 @@ test(`login should throw if the seed request does not return correctly`, async t
 })
 
 test(`login should hash the password with the response seeds`, async t => {
-    login('user', 'pass')
+    const prom = login('user', 'pass')
+    prom.catch(t.fail)
     respondToLastRequest(context.requests, {status: 'ok', salt: 'salt1', salt2: 'salt2', seed: 'seed'})
     await tick()
 
@@ -207,7 +208,7 @@ test(`getLists should return empty lists if not logged in`, async t => {
 test(`setLists should encode names`, async t => {
     const api = new Api({ name: 'AIRSTEDDING', id: '123' })
 
-    api.setLists({ adminlist: ['%#&!&\'='], modlist: [], whitelist: [], blacklist: []})
+    api.setLists({ adminlist: ['%#&!&\'='], modlist: [], whitelist: [], blacklist: []}).catch(t.fail)
     t.is(context.requests[0].init.body, `admins=%25%23%26!%26\'%3D&modlist=&whitelist=&blacklist=`)
     t.is(context.requests[0].url, `/worlds/lists/123`)
 })
