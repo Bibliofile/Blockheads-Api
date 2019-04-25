@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>WorldInfo | Blockheads-Api</title>
+	<title>WorldLists | Blockheads-Api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="worldinfo.html">WorldInfo</a>
+					<a href="../modules/_api_index_.html">&quot;api/index&quot;</a>
+				</li>
+				<li>
+					<a href="_api_index_.worldlists.html">WorldLists</a>
 				</li>
 			</ul>
-			<h1>Interface WorldInfo</h1>
+			<h1>Interface WorldLists</h1>
 		</div>
 	</div>
 </header>
@@ -67,7 +70,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Information about a world</p>
+						<p>The lists used by the server to check permissions.</p>
 					</div>
 				</div>
 			</section>
@@ -75,7 +78,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">WorldInfo</span>
+						<span class="target">WorldLists</span>
 					</li>
 				</ul>
 			</section>
@@ -86,8 +89,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="worldinfo.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="worldinfo.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_index_.worldlists.html#adminlist" class="tsd-kind-icon">adminlist</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_index_.worldlists.html#blacklist" class="tsd-kind-icon">blacklist</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_index_.worldlists.html#modlist" class="tsd-kind-icon">modlist</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_index_.worldlists.html#whitelist" class="tsd-kind-icon">whitelist</a></li>
 							</ul>
 						</section>
 					</div>
@@ -96,32 +101,62 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="adminlist" class="tsd-anchor"></a>
+					<h3>adminlist</h3>
+					<div class="tsd-signature tsd-kind-icon">adminlist<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/7418046/api/index.ts#L30">api/index.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/9479a10/api/index.ts#L40">api/index.ts:40</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The world&#39;s ID. For cloud worlds, this will be a numeric string. For mac worlds this will be the folder which the world is stored under.</p>
+							<p>Player names on the adminlist.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="blacklist" class="tsd-anchor"></a>
+					<h3>blacklist</h3>
+					<div class="tsd-signature tsd-kind-icon">blacklist<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/7418046/api/index.ts#L26">api/index.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/9479a10/api/index.ts#L52">api/index.ts:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The name of the world</p>
+							<p>Player names on the blacklist. Will be stripped of device IDs.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="modlist" class="tsd-anchor"></a>
+					<h3>modlist</h3>
+					<div class="tsd-signature tsd-kind-icon">modlist<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/9479a10/api/index.ts#L44">api/index.ts:44</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Player names on the modlist.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="whitelist" class="tsd-anchor"></a>
+					<h3>whitelist</h3>
+					<div class="tsd-signature tsd-kind-icon">whitelist<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Bibliofile/Blockheads-Api/blob/9479a10/api/index.ts#L48">api/index.ts:48</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Player names on the whitelist.</p>
 						</div>
 					</div>
 				</section>
@@ -133,66 +168,66 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_api_index_.html">"api/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_cloud_index_.html">"cloud/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_cloud_logs_.html">"cloud/logs"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_mac_index_.html">"mac/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_mac_logs_.html">"mac/logs"</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class">
-						<a href="../classes/api.html" class="tsd-kind-icon">Api</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_api_index_.logentry.html" class="tsd-kind-icon">Log<wbr>Entry</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-private">
-						<a href="../classes/logparser.html" class="tsd-kind-icon">Log<wbr>Parser</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_api_index_.worldapi.html" class="tsd-kind-icon">World<wbr>Api</a>
 					</li>
-					<li class=" tsd-kind-interface">
-						<a href="logentry.html" class="tsd-kind-icon">Log<wbr>Entry</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="worldapi.html" class="tsd-kind-icon">World<wbr>Api</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_api_index_.worldinfo.html" class="tsd-kind-icon">World<wbr>Info</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="worldinfo.html" class="tsd-kind-icon">World<wbr>Info</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_api_index_.worldlists.html" class="tsd-kind-icon">World<wbr>Lists</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="worldinfo.html#id" class="tsd-kind-icon">id</a>
+								<a href="_api_index_.worldlists.html#adminlist" class="tsd-kind-icon">adminlist</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="worldinfo.html#name" class="tsd-kind-icon">name</a>
+								<a href="_api_index_.worldlists.html#blacklist" class="tsd-kind-icon">blacklist</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_api_index_.worldlists.html#modlist" class="tsd-kind-icon">modlist</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_api_index_.worldlists.html#whitelist" class="tsd-kind-icon">whitelist</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="worldlists.html" class="tsd-kind-icon">World<wbr>Lists</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_api_index_.worldoverview.html" class="tsd-kind-icon">World<wbr>Overview</a>
 					</li>
-					<li class=" tsd-kind-interface">
-						<a href="worldoverview.html" class="tsd-kind-icon">World<wbr>Overview</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_api_index_.html#worldprivacy" class="tsd-kind-icon">World<wbr>Privacy</a>
 					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#worldprivacy" class="tsd-kind-icon">World<wbr>Privacy</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_api_index_.html#worldsizes" class="tsd-kind-icon">World<wbr>Sizes</a>
 					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#worldsizes" class="tsd-kind-icon">World<wbr>Sizes</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#worldstatus" class="tsd-kind-icon">World<wbr>Status</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#getworlds" class="tsd-kind-icon">get<wbr>Worlds</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#login" class="tsd-kind-icon">login</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#setfetch" class="tsd-kind-icon">set<wbr>Fetch</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#unwatchchat" class="tsd-kind-icon">unwatch<wbr>Chat</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#watchchat" class="tsd-kind-icon">watch<wbr>Chat</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_api_index_.html#worldstatus" class="tsd-kind-icon">World<wbr>Status</a>
 					</li>
 				</ul>
 			</nav>
