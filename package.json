@@ -12,6 +12,8 @@
     "simple-plist": "^1.0.0"
   },
   "devDependencies": {
+    "@gerrit0/typedoc": "0.15.0",
+    "@types/node": "^12.0.4",
     "@types/tape": "^4.2.33",
     "nyc": "^13.3.0",
     "rollup": "^1.7.3",
@@ -20,7 +22,6 @@
     "tape": "^4.10.1",
     "ts-node": "^8.0.3",
     "tslint": "^5.14.0",
-    "typedoc": "0.14.2",
     "typescript": "^3.3.4000"
   },
   "scripts": {
@@ -31,7 +32,7 @@
     "test:mac": "tape -r ts-node/register index.test.noautorun.ts | tap-prettify -",
     "coverage:mac": "nyc yarn test:mac",
     "report": "nyc report --reporter=html --reporter=lcov",
-    "docs": "typedoc . && echo Save >> docs/.nojekyll",
+    "docs": "typedoc api cloud mac && echo Save >> docs/.nojekyll",
     "clean": "rm cloud/*.js cloud/*.d.ts mac/*.js mac/*.d.ts",
     "check_publish": "bash scripts/check_publish.sh"
   },
